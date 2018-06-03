@@ -22,7 +22,7 @@
         <activity
             android:name=".Activities.Activities.HolderActivity"
             android:label="@string/title_activity_holder"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/MainActivity"></activity>
     </application>
 
 </manifest>
