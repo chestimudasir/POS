@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottomSheet"
+    android:layout_width="match_parent"
+    android:layout_height="500dp"
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="53dp"
+    app:layout_behavior="@string/bottom_sheet_behavior">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="2dp"
+        app:cardElevation="6dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/new_order"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:padding="15dp"
+                android:text="Add new Order"
+                android:textColor="@color/cardview_dark_background"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/collapse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Button" />
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+
+</RelativeLayout>
