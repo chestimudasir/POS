@@ -4,20 +4,25 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import pos.com.pos.R;
 
 public class OrdersFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
+    BottomSheetBehavior bottomSheetBehavior;
+    Boolean collapsed = false;
 
     public OrdersFragment() {
         // Required empty public constructor
     }
+
 
 
     @Override
@@ -32,6 +37,45 @@ public class OrdersFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_orders, container, false);
 
+        final View bottomSheet = root.findViewById(R.id.bottomSheet);
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+
+        root.findViewById(R.id.collapse).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+            }
+        });
+
+        bottomSheetBehavior.setHideable(false);
+
+        root.findViewById(R.id.new_order).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+            }
+        });
+
+        BottomSheetBehavior.BottomSheetCallback callback = new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+
+                if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
+                    Toast.makeText(getActivity(), "Collapsed by dragging", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+                if (slideOffset == 0.0) {
+                    Toast.makeText(getActivity(), "Dragged down", Toast.LENGTH_SHORT).show();
+                }
+            }
+        };
+
+        bottomSheetBehavior.setBottomSheetCallback(callback);
 
         return root;
     }

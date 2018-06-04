@@ -2,7 +2,7 @@ package pos.com.pos.Activities.Activities;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -11,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import pos.com.pos.Activities.Fragments.DashBoard;
 import pos.com.pos.Activities.Fragments.MenuFragment;
@@ -21,6 +20,9 @@ import pos.com.pos.R;
 public class HolderActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, DashBoard.OnFragmentInteractionListener,
         MenuFragment.OnFragmentInteractionListener, OrdersFragment.OnFragmentInteractionListener {
+
+    BottomSheetBehavior bottomSheetBehavior;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,14 +34,8 @@ public class HolderActivity extends AppCompatActivity
         android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.fragment_container, new DashBoard()).commit();
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
 
-            }
-        });
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

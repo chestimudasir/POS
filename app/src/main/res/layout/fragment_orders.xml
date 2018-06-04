@@ -5,10 +5,13 @@
     android:layout_height="match_parent"
     tools:context=".Activities.Fragments.OrdersFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+
+        <include layout="@layout/order_bottom_sheet" />
+
+    </android.support.design.widget.CoordinatorLayout>
+
 
 </FrameLayout>
