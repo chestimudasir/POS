@@ -1,12 +1,14 @@
 package pos.com.pos.Activities.Fragments;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import pos.com.pos.R;
 
@@ -65,7 +67,20 @@ public class DashBoard extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_dash_board, container, false);
+        View root = inflater.inflate(R.layout.fragment_dash_board, container, false);
+
+        TextView tx = (TextView)root.findViewById(R.id.textView10);
+
+        Typeface custom_font = Typeface.createFromAsset(getActivity().getAssets(),  "fonts/Product Sans Regular.ttf");
+        tx.setText("Good Morning, Books and Bricks");
+        tx.setTypeface(custom_font);
+
+        TextView tx1 = (TextView)root.findViewById(R.id.textView11);
+
+        Typeface custom_font2 = Typeface.createFromAsset(getActivity().getAssets(),  "fonts/Product Sans Regular.ttf");
+        tx1.setTypeface(custom_font2);
+
+        return root;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
