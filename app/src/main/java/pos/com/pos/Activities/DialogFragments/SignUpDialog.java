@@ -21,7 +21,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
+
 import pos.com.pos.Activities.Activities.SetUp;
+import pos.com.pos.Activities.Helpers.UserConfig;
 import pos.com.pos.R;
 
 public class SignUpDialog extends DialogFragment {
@@ -58,6 +60,11 @@ public class SignUpDialog extends DialogFragment {
                                 .child("Business_name").setValue(name.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
+
+
+                                //Set data to UserConfig
+                                UserConfig userConfig = new UserConfig();
+                                userConfig.setName(name.getText().toString());
 
                                 //Start the set up
                                 startActivity(new Intent(getActivity() , SetUp.class));
@@ -102,4 +109,5 @@ public class SignUpDialog extends DialogFragment {
         getDialog().getWindow().setWindowAnimations(
                 R.style.dialog_animation_fade);
     }
+
 }

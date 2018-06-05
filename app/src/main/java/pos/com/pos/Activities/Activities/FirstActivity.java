@@ -3,8 +3,8 @@ package pos.com.pos.Activities.Activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import pos.com.pos.Activities.DialogFragments.SignInDialog;
@@ -24,12 +24,10 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
         final SharedPreferences sharedPreferences = getSharedPreferences("Login_prefs" , Context.MODE_PRIVATE);
 
         //Check Login State
-        if (sharedPreferences.getInt("logged_in" , 99) == 1){
-            startActivity(new Intent(FirstActivity.this , HolderActivity.class));
+        if (sharedPreferences.getInt("logged_in" , 99) == 1) {
+            startActivity(new Intent(FirstActivity.this, HolderActivity.class));
 
         }
-
-
 
     }
 
