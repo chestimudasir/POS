@@ -10,12 +10,10 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import pos.com.pos.Activities.Fragments.DashBoard;
 import pos.com.pos.Activities.Fragments.MenuFragment;
 import pos.com.pos.Activities.Fragments.OrdersFragment;
-import pos.com.pos.Activities.Helpers.UserConfig;
 import pos.com.pos.R;
 
 public class HolderActivity extends AppCompatActivity
@@ -31,10 +29,6 @@ public class HolderActivity extends AppCompatActivity
         setContentView(R.layout.activity_holder);
 
         //Check if the guy completed his setup via User Config
-        UserConfig userConfig = new UserConfig();
-        if (userConfig.getSetUpStatus() == 1){
-            findViewById(R.id.complete_profile).setVisibility(View.GONE);
-        }
 
         android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.fragment_container, new DashBoard()).commit();

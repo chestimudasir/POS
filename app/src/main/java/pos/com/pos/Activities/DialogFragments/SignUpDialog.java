@@ -34,7 +34,7 @@ public class SignUpDialog extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
          super.onCreateView(inflater, container, savedInstanceState);
 
-         View root = inflater.inflate(R.layout.sign_up,container , false);
+         final View root = inflater.inflate(R.layout.sign_up,container , false);
 
          //INIT VIEWS
         ImageView next = root.findViewById(R.id.next);
@@ -50,6 +50,8 @@ public class SignUpDialog extends DialogFragment {
             @Override
             public void onClick(View v) {
 
+                root.findViewById(R.id.login_status).setVisibility(View.VISIBLE);
+
                 auth.createUserWithEmailAndPassword(email.getText().toString() , password.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -64,11 +66,13 @@ public class SignUpDialog extends DialogFragment {
 
                                 //Set data to UserConfig
                                 UserConfig userConfig = new UserConfig();
+                                UserConfig.init(getActivity());
                                 userConfig.setName(name.getText().toString());
 
                                 //Start the set up
                                 startActivity(new Intent(getActivity() , SetUp.class));
 
+                                getActivity().finish();
                                 //SAVE login state
                                 sharedPreferences.edit().putInt("logged_in" ,1).apply();
 

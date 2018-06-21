@@ -36,12 +36,11 @@ public class SetUp extends AppCompatActivity {
 
                 //init UserConfig
                 UserConfig userConfig = new UserConfig();
-                userConfig.init(SetUp.this);
+                UserConfig.init(SetUp.this);
 
                 //If Empty
                 if (!admin_pass.getText().toString().equals("") || !num_tables.getText().toString().equals("")) {
 
-                    //Add Values to Shared Preferences
                     userConfig.setTableNumber(Integer.parseInt(num_tables.getText().toString()));
                     userConfig.setAdminPassword(admin_pass.getText().toString());
                     userConfig.setSetUpStatus(1);

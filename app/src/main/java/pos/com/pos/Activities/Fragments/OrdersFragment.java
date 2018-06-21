@@ -1,5 +1,6 @@
 package pos.com.pos.Activities.Fragments;
 
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -13,17 +14,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Random;
 
+import pos.com.pos.Activities.Database.OrdersDatabase.OrderEntry;
+import pos.com.pos.Activities.Database.OrdersDatabase.OrdersDatabase;
+import pos.com.pos.Activities.Helpers.UserConfig;
 import pos.com.pos.Activities.Models.OrderModel;
 import pos.com.pos.R;
 
@@ -33,12 +31,9 @@ public class OrdersFragment extends Fragment {
     BottomSheetBehavior bottomSheetBehavior;
     ArrayList<OrderModel> orderModels = new ArrayList<>();
 
-
     public OrdersFragment() {
         // Required empty public constructor
     }
-
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,11 +46,6 @@ public class OrdersFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_orders, container, false);
-
-        //IMP SAMPLE DATA
-        final int[] table_no = new int[1];
-        final float order_price= 100;
-        final String order_type ="Table";
 
         final View bottomSheet = root.findViewById(R.id.bottomSheet);
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
@@ -79,17 +69,21 @@ public class OrdersFragment extends Fragment {
             @Override
             public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
                 holder.table_no.setText("#" + (holder.getAdapterPosition() +1));
+
                 holder.table_no.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                     }
                 });
+
+
+
             }
 
             @Override
             public int getItemCount() {
-                return 10;
+                return new UserConfig().getTableCount();
             }
         };
 
@@ -126,22 +120,40 @@ public class OrdersFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                OrderModel orderModel = new OrderModel(order_type,table_no[0] , order_price);
+                OrdersDatabase orderModel = Room.databaseBuilder(getActivity() , OrdersDatabase.class , "OrdersDB").build();
 
-                FirebaseDatabase.getInstance().getReference(getString(R.string.business_parent_node))
-                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                        .child(getString(R.string.Orders_node)).child(new SimpleDateFormat("dd-MMM-yyyy").format(new Date()))
-                        .push().setValue(orderModel).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
+                //Create Order Object
+                OrderEntry orderEntry = new OrderEntry();
+                orderEntry.setCurrent(1);
+                orderEntry.setBalance(0);
+                orderEntry.setCust_num("9596");
+                orderEntry.setDate_time("");
+                Random random = new Random();
+                orderEntry.setOrder_no(String.valueOf(Math.abs(random.nextInt())));
+                orderEntry.setDiscount(0);
+                orderEntry.setTable_no(1);
+                orderEntry.setSynched(0);
+                orderEntry.setTicket_cost(10);
 
-                    }
-                });
+                OrdersDatabase order = OrdersDatabase.getInstance(getActivity());
+                order.ordersDao().insertOrder(orderEntry);
+
+                Toast.makeText(getActivity() , "" +order.ordersDao().getAllOrders().length ,Toast.LENGTH_SHORT).show();
+//
+//                FirebaseDatabase.getInstance().getReference(getString(R.string.business_parent_node))
+//                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+//                        .child(getString(R.string.Orders_node)).child(new SimpleDateFormat("dd-MMM-yyyy").format(new Date()))
+//                        .push().setValue(orderModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Void> task) {
+//                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+//                    }
+//                }).addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//
+//                    }
+//                });
             }
         });
 

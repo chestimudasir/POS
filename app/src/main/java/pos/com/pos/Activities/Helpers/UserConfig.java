@@ -5,9 +5,9 @@ import android.content.SharedPreferences;
 
 public class UserConfig {
 
-    private SharedPreferences userConfig;
+    private static SharedPreferences userConfig;
 
-    public void init(Context context){
+    public static void init(Context context){
         userConfig = context.getSharedPreferences("userconfig" , Context.MODE_PRIVATE);
     }
 
