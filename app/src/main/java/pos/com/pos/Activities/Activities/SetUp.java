@@ -42,6 +42,8 @@ public class SetUp extends AppCompatActivity {
                 if (!admin_pass.getText().toString().equals("") || !num_tables.getText().toString().equals("")) {
 
                     userConfig.setTableNumber(Integer.parseInt(num_tables.getText().toString()));
+                    //Create a SP for tables/Order Number that will be written and read from
+                    userConfig.setupTables();
                     userConfig.setAdminPassword(admin_pass.getText().toString());
                     userConfig.setSetUpStatus(1);
 

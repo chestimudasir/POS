@@ -8,10 +8,9 @@ import android.support.annotation.NonNull;
 @Entity(tableName = "order")
 public class OrderEntry {
     
-    @PrimaryKey @NonNull
+    @PrimaryKey (autoGenerate = false)@NonNull
     public
-    String order_no;
-    
+    int order_no;
     //Columns for the DB
     @ColumnInfo (name = "date_time")
     public
@@ -39,7 +38,7 @@ public class OrderEntry {
 
     @ColumnInfo(name = "settled")
     public
-    byte settled_flag;
+    int settled_flag;
     
     @ColumnInfo(name = "balance")
     public
@@ -53,13 +52,10 @@ public class OrderEntry {
     @ColumnInfo (name = "synced")
     public
     int synched;
-    @ColumnInfo (name = "current")
-    public
-    int current;
 
     public  OrderEntry(){}
 
-    public OrderEntry(String order_no,
+    public OrderEntry(int order_no,
                       String date_time,
                       short table_no,
                       short ticket_cost,
@@ -69,8 +65,7 @@ public class OrderEntry {
                       byte settled_flag,
                       int balance,
                       String tid,
-                      byte synched,
-                      byte current) {
+                      byte synched) {
 
         this.order_no = order_no;
         this.date_time = date_time;
@@ -81,7 +76,6 @@ public class OrderEntry {
         this.discount = discount;
         this.settled_flag = settled_flag;
         this.balance = balance;
-        this.current = current;
         this.tid = tid;
         this.synched = synched;
     }
@@ -94,19 +88,12 @@ public class OrderEntry {
         this.synched = synched;
     }
 
-    public int getCurrent() {
-        return current;
-    }
-
-    public void setCurrent(int current) {
-        this.current = current;
-    }
     
-    public String getOrder_no() {
+    public int getOrder_no() {
         return order_no;
     }
 
-    public void setOrder_no(String order_no) {
+    public void setOrder_no(int order_no) {
         this.order_no = order_no;
     }
 
@@ -158,11 +145,11 @@ public class OrderEntry {
         this.discount = discount;
     }
 
-    public byte getSettled_flag() {
+    public int getSettled_flag() {
         return settled_flag;
     }
 
-    public void setSettled_flag(byte settled_flag) {
+    public void setSettled_flag(int settled_flag) {
         this.settled_flag = settled_flag;
     }
 

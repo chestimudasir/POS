@@ -10,8 +10,8 @@ import android.arch.persistence.room.Update;
 public interface OrdersDAO {
 
     //Get Specific Order Information
-    @Query("SELECT * FROM `order` WHERE table_no = (:order_num)")
-    OrderEntry loadAlltasks(String order_num);
+    @Query("SELECT * FROM `order` WHERE order_no = (:order_num)")
+    OrderEntry getOrderInfo(int order_num);
 
 
     @Query("SELECT * FROM `order` WHERE synced = 0")

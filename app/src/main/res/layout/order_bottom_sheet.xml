@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/bottomSheet"
+    android:id="@+id/bottomSheetInfo"
     android:layout_width="match_parent"
-    android:layout_height="500dp"
+    android:layout_height="200dp"
     app:behavior_hideable="false"
-    app:behavior_peekHeight="55dp"
+    app:behavior_peekHeight="80dp"
     app:layout_behavior="@string/bottom_sheet_behavior">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+
         android:layout_height="match_parent"
-        android:layout_marginTop="5dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         app:cardElevation="6dp">
@@ -20,115 +21,37 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <android.support.v7.widget.CardView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-
-                android:layout_alignEnd="@+id/card"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="12dp"
-                app:cardCornerRadius="15dp">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#93a7fd">
-
-                    <ImageView
-                        android:id="@+id/next"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/baseline_chevron_right_white_48" />
-
-                </RelativeLayout>
-            </android.support.v7.widget.CardView>
             <TextView
-                android:id="@+id/new_order"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-
-                android:padding="15dp"
-                android:text="Add new Order"
-                android:textColor="@color/cardview_dark_background"
-                android:textStyle="bold" />
-
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/card"
-                android:layout_width="match_parent"
+                android:id="@+id/textView19"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="62dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                app:cardElevation="1dp">
+                android:layout_marginStart="21dp"
+                android:layout_marginTop="14dp"
+                android:text="TextView" />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/textView12"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginStart="12dp"
-                        android:layout_marginTop="11dp"
-                        android:text="Search items in the menu"
-                        android:textSize="10sp" />
-
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_below="@+id/textView12"
-                        android:layout_marginTop="10dp"
-                        android:background="@android:color/transparent"
-                        android:hint="Search"
-                        android:padding="15sp" />
-                </RelativeLayout>
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_width="match_parent"
-                app:cardElevation="3dp"
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/card">
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@+id/textView19"
+                android:layout_marginEnd="16dp"
+                android:text="TextView" />
 
-                <RelativeLayout
+            <Button
+
+                android:id="@+id/button3"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/textView13"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginStart="19dp"
-                    android:layout_marginTop="12dp"
-                    android:text="Book a table"
-                    android:textSize="10sp" />
-
-                <android.support.v7.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tables"
-                    android:layout_margin="5dp"
-                    android:layout_below="@+id/textView13"
-                    android:layout_alignParentStart="true"></android.support.v7.widget.RecyclerView>
-
-            </RelativeLayout></android.support.v7.widget.CardView>
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:background="#4fbeed"
+                android:text="Sync"
+                android:textColor="@color/cardview_light_background" />
 
         </RelativeLayout>
+
     </android.support.v7.widget.CardView>
-
-
-
 </RelativeLayout>

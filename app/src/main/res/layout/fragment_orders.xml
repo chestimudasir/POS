@@ -52,6 +52,7 @@
         android:layout_height="match_parent">
 
         <include layout="@layout/order_bottom_sheet" />
+        <include layout="@layout/order_taker"/>
 
     </android.support.design.widget.CoordinatorLayout>
 
