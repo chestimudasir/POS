@@ -1,5 +1,6 @@
 package pos.com.pos.Activities.Fragments;
 
+import android.annotation.SuppressLint;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.graphics.Typeface;
@@ -14,9 +15,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Random;
 
 import pos.com.pos.Activities.Database.OrdersDatabase.OrderEntry;
@@ -30,6 +32,11 @@ public class OrdersFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
     BottomSheetBehavior bottomSheetBehavior;
     ArrayList<OrderModel> orderModels = new ArrayList<>();
+
+    //ORDER details that need to be global
+    private int order_number;
+    private RecyclerView.Adapter<ViewHolder> adapterGlobalTable;
+    private int table_current;
 
     public OrdersFragment() {
         // Required empty public constructor
@@ -47,10 +54,12 @@ public class OrdersFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_orders, container, false);
 
+        //INIT BOTTOM SHEET
         final View bottomSheet = root.findViewById(R.id.bottomSheet);
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         bottomSheetBehavior.setHideable(false);
 
+        //ORDERSING.. TITLE
         TextView orders = root.findViewById(R.id.orders);
         Typeface custom_font = Typeface.createFromAsset(getActivity().getAssets(),  "fonts/Product Sans Regular.ttf");
         orders.setTypeface(custom_font);
@@ -59,7 +68,7 @@ public class OrdersFragment extends Fragment {
         //FOR ORDERS
         RecyclerView rv_orders = root.findViewById(R.id.order_view_rv);
         rv_orders.setLayoutManager(new GridLayoutManager(getActivity(), 3));
-        final RecyclerView.Adapter<ViewHolder> adapter = new RecyclerView.Adapter<ViewHolder>() {
+        adapterGlobalTable= new RecyclerView.Adapter<ViewHolder>() {
             @NonNull
             @Override
             public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -67,17 +76,25 @@ public class OrdersFragment extends Fragment {
             }
 
             @Override
-            public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+            public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+
                 holder.table_no.setText("#" + (holder.getAdapterPosition() +1));
 
+                //SET TABLE DATA after checking NPA
+                if (getOrderDetails(holder.getAdapterPosition()) != null)
+                    holder.cost_on_table.setText(""+getOrderDetails(holder.getAdapterPosition()).getOrder_no());
+
+
+
+                //On Click Expand and let the system know what table and what Order no
+                //to work with
                 holder.table_no.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                        initOrdering(holder.getAdapterPosition());
                     }
                 });
-
-
 
             }
 
@@ -87,7 +104,7 @@ public class OrdersFragment extends Fragment {
             }
         };
 
-        rv_orders.setAdapter(adapter);
+        rv_orders.setAdapter(adapterGlobalTable);
         //Get Orders
 
 
@@ -95,7 +112,7 @@ public class OrdersFragment extends Fragment {
         RecyclerView rv = root.findViewById(R.id.tables);
         rv.setLayoutManager(new GridLayoutManager(getActivity() , 2));
 
-        //DUMMUY TABLES
+        //DUMMUY TABLES in ORDER SHEET
         RecyclerView.Adapter<ViewHolder> viewHolderAdapter = new RecyclerView.Adapter<ViewHolder>() {
             @NonNull
             @Override
@@ -116,47 +133,29 @@ public class OrdersFragment extends Fragment {
 
         rv.setAdapter(viewHolderAdapter);
 
+        //INITIATE ORDER PROCESS
         root.findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                OrdersDatabase orderModel = Room.databaseBuilder(getActivity() , OrdersDatabase.class , "OrdersDB").build();
-
-                //Create Order Object
-                OrderEntry orderEntry = new OrderEntry();
-                orderEntry.setCurrent(1);
-                orderEntry.setBalance(0);
-                orderEntry.setCust_num("9596");
-                orderEntry.setDate_time("");
-                Random random = new Random();
-                orderEntry.setOrder_no(String.valueOf(Math.abs(random.nextInt())));
-                orderEntry.setDiscount(0);
-                orderEntry.setTable_no(1);
-                orderEntry.setSynched(0);
-                orderEntry.setTicket_cost(10);
-
-                OrdersDatabase order = OrdersDatabase.getInstance(getActivity());
-                order.ordersDao().insertOrder(orderEntry);
-
-                Toast.makeText(getActivity() , "" +order.ordersDao().getAllOrders().length ,Toast.LENGTH_SHORT).show();
-//
-//                FirebaseDatabase.getInstance().getReference(getString(R.string.business_parent_node))
-//                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-//                        .child(getString(R.string.Orders_node)).child(new SimpleDateFormat("dd-MMM-yyyy").format(new Date()))
-//                        .push().setValue(orderModel).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<Void> task) {
-//                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-//                    }
-//                }).addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//
-//                    }
-//                });
+                //Do the magic and order and set the order as unsynched magically
+                initOrderAndInsert(table_current ,
+                        999,
+                        "9596070982",
+                        "",
+                        10,
+                        1,
+                        0);
             }
         });
 
+        root.findViewById(R.id.next).setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                new UserConfig().clear();
+                return true;
+            }
+        });
         root.findViewById(R.id.new_order).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -188,7 +187,6 @@ public class OrdersFragment extends Fragment {
         return root;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -212,21 +210,60 @@ public class OrdersFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
 
 
+    }
+
+    //INIT
+    void initOrdering(int pos){
+        Random random = new Random();
+        order_number = random.nextInt(10000-1)+1;
+        table_current = pos+1;
+    }
+
+    //INSERTION AND LINKING
+    @SuppressLint("StaticFieldLeak")
+    void initOrderAndInsert(int table_no,
+                            int cost,
+                            String cust_no,
+                            String emp_sign,
+                            int dcnt,
+                            int settled,
+                            int bal){
+
+        final OrdersDatabase orderModel = Room.databaseBuilder(getActivity() , OrdersDatabase.class , "OrdersDB").build();
+
+        //Create Order Object
+        final OrderEntry orderEntry = new OrderEntry();
+        orderEntry.setBalance(bal);
+        orderEntry.setCust_num(cust_no);
+        orderEntry.setDate_time(new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()));
+        orderEntry.setOrder_no(order_number);
+        orderEntry.setDiscount(dcnt);
+        orderEntry.setTable_no(table_no);
+        orderEntry.setSynched(0);
+        orderEntry.setTicket_cost(cost);
+        orderEntry.setEmp_sign(emp_sign);
+        orderEntry.setSettled_flag(1);
+
+        //ADD Order to DB
+        OrdersDatabase ordersDatabase = OrdersDatabase.getInstance(getActivity());
+        ordersDatabase.ordersDao().insertOrder(orderEntry);
+
+        //Set Current Order to respective table and refresh RV
+        UserConfig config = new UserConfig();
+        config.setOrderToTable(table_current, order_number);
+        adapterGlobalTable.notifyDataSetChanged();
+    }
+
+    //Get order details based on order number
+    OrderEntry getOrderDetails(int pos){
+        UserConfig userConfig = new UserConfig();
+         return OrdersDatabase.getInstance(getActivity()).ordersDao().getOrderInfo(userConfig.getOrderNumberFromTable(pos+1));
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
@@ -235,6 +272,8 @@ public class OrdersFragment extends Fragment {
         public ViewHolder(View itemView) {
             super(itemView);
             table_no = itemView.findViewById(R.id.textView14);
+            cost_on_table = itemView.findViewById(R.id.textView15);
         }
     }
+
 }
