@@ -8,8 +8,15 @@
         android:layout_height="wrap_content">
 
         <RelativeLayout
-            android:layout_width="120dp"
+            android:id="@+id/clickacble_order"
+            android:layout_width="115dp"
             android:layout_height="120dp">
+
+            <View
+                android:id="@+id/indicator"
+                android:layout_width="4dp"
+                android:layout_height="match_parent"
+                android:background="#ffd903" />
 
 
             <TextView
@@ -18,33 +25,34 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
-                android:text="#7"
                 android:layout_margin="5dp"
-                android:textSize="20dp"
+                android:text="#7"
+                android:textSize="10dp"
                 android:textStyle="bold" />
 
             <TextView
-                android:textSize="26dp"
                 android:id="@+id/textView15"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
                 android:layout_width="wrap_content"
-                android:textStyle="bold"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_marginTop="39dp"
-                android:text="$824" />
+                android:text="AVL"
+                android:textColor="@color/cardview_dark_background"
+                android:textSize="26dp"
+                android:textStyle="bold" />
 
             <TextView
-                android:layout_marginBottom="5dp"
                 android:id="@+id/textView16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:text="TextView"
-                android:textSize="10dp" />
+                android:layout_marginBottom="21dp"
+                android:text="Order unpaid"
+                android:textSize="8dp" />
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 </RelativeLayout>

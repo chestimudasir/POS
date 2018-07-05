@@ -12,22 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-
+import pos.com.pos.Activities.Database.OrdersDatabase.MenuDatabase.MenuDataBase;
 import pos.com.pos.Activities.DialogFragments.MenuItemAdder;
-import pos.com.pos.Activities.Models.MenuModel;
 import pos.com.pos.R;
 
 public class MenuFragment extends Fragment {
 
-    ArrayList<MenuModel> menu_items = new ArrayList<>();
     private OnFragmentInteractionListener mListener;
+    pos.com.pos.Activities.Database.OrdersDatabase.MenuDatabase.MenuItem[] menuItems;
 
     public MenuFragment() {
         // Required empty public constructor
@@ -46,6 +38,9 @@ public class MenuFragment extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_menu, container, false);
 
+        //Get ALL Menu items
+        getMenu();
+
         RecyclerView menu = root.findViewById(R.id.menuRv);
         menu.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -61,42 +56,21 @@ public class MenuFragment extends Fragment {
             public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
 
-                if (menu_items.get(holder.getAdapterPosition()).item_name != null) {
-                    holder.item_name.setText(menu_items.get(holder.getAdapterPosition()).item_name);
-                    holder.item_price.setText(String.valueOf(menu_items.get(holder.getAdapterPosition()).item_price));
-                }
+                    holder.item_name.setText(menuItems[holder.getAdapterPosition()].item_name);
+                    holder.item_price.setText(String.valueOf(menuItems[holder.getAdapterPosition()].item_price));
+
             }
 
             @Override
             public int getItemCount() {
-                return menu_items.size();
+                return menuItems.length;
             }
         };
+
+
+
         menu.setAdapter(adapter);
 
-        //GET MENU ITEMS
-        FirebaseDatabase.getInstance().getReference(getString(R.string.business_parent_node))
-                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .child(getString(R.string.Menu_node))
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-
-                        menu_items.clear();
-                        Iterable<DataSnapshot> dataSnapshots = dataSnapshot.getChildren();
-                        for (DataSnapshot d : dataSnapshots) {
-                            menu_items.add(d.getValue(MenuModel.class));
-                        }
-                        adapter.notifyDataSetChanged();
-
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
 
         //LAUNCH ADDER
         root.findViewById(R.id.add_item).setOnClickListener(new View.OnClickListener() {
@@ -150,4 +124,10 @@ public class MenuFragment extends Fragment {
             item_price = itemView.findViewById(R.id.price_of_item);
         }
     }
+
+    void getMenu(){
+        menuItems = MenuDataBase.getInstance(getActivity()).MenuDOA().getMenu();
+    }
+
+
 }

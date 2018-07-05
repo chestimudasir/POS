@@ -22,16 +22,16 @@ public class OrderEntry {
 
     @ColumnInfo (name = "ticket_cost")
     public
-    int ticket_cost;
-    
+    float ticket_cost;
+
     @ColumnInfo (name = "cust_num")
     public
     String cust_num;
-    
+
     @ColumnInfo (name = "emp_sign")
     public
     String emp_sign;
-    
+
     @ColumnInfo (name = "discount")
     public
     float discount;
@@ -39,19 +39,30 @@ public class OrderEntry {
     @ColumnInfo(name = "settled")
     public
     int settled_flag;
-    
+
     @ColumnInfo(name = "balance")
     public
     int balance;
-    
+
     //Might need
     @ColumnInfo (name = "tid")
     public
     String tid;
-    
+
     @ColumnInfo (name = "synced")
     public
     int synched;
+    @ColumnInfo (name = "marker")
+    public
+    String marker;
+
+    public String getMarker() {
+        return marker;
+    }
+
+    public void setMarker(String marker) {
+        this.marker = marker;
+    }
 
     public  OrderEntry(){}
 
@@ -88,7 +99,7 @@ public class OrderEntry {
         this.synched = synched;
     }
 
-    
+
     public int getOrder_no() {
         return order_no;
     }
@@ -113,11 +124,11 @@ public class OrderEntry {
         this.table_no = table_no;
     }
 
-    public int getTicket_cost() {
+    public float getTicket_cost() {
         return ticket_cost;
     }
 
-    public void setTicket_cost(int ticket_cost) {
+    public void setTicket_cost(float ticket_cost) {
         this.ticket_cost = ticket_cost;
     }
 

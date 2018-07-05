@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
-import android.os.AsyncTask;
 import android.widget.Toast;
 
 public class NetworkBroadCastReciever extends BroadcastReceiver {
@@ -19,7 +18,7 @@ public class NetworkBroadCastReciever extends BroadcastReceiver {
 
         if (networkInfo.isAvailable() || info.isAvailable()){
             //Code for sync
-            Toast.makeText(this, "Network Available", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Network Available", Toast.LENGTH_SHORT).show();
         }
     }
 }
