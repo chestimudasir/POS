@@ -2,16 +2,26 @@ package pos.com.pos.Activities.DialogFragments;
 
 import android.app.DialogFragment;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import pos.com.pos.R;
 
 public class SignInDialog extends DialogFragment {
+    private FirebaseAuth auth;
 
     @Nullable
     @Override
@@ -22,12 +32,29 @@ public class SignInDialog extends DialogFragment {
 
          //INITIATE VIEWS
         ImageView next = root.findViewById(R.id.next);
-        final EditText username = root.findViewById(R.id.email), password = root.findViewById(R.id.password);
+        final EditText username = root.findViewById(R.id.email),
+                passwordTextView = root.findViewById(R.id.password);
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                String email = username.getText().toString();
+                String password = passwordTextView.getText().toString();
+                if (!email.isEmpty() || password.length() > 6) {
+                    auth.signInWithEmailAndPassword(email, password)
+                            .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        FirebaseUser user = auth.getCurrentUser();
+                                        //Update UI
+                                    } else {
+                                        Toast.makeText(this, "Authentication Failed", Toast.LENGTH_SHORT).show();
+                                        //DO SOMETHING
+                                    }
+                                }
+                            })
+                }
             }
         });
 
