@@ -16,6 +16,7 @@ public class NetworkBroadCastReciever extends BroadcastReceiver {
         final android.net.NetworkInfo info = connectivityManager
                 .getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 
+
         if (networkInfo.isAvailable() || info.isAvailable()){
             //Code for sync
             Toast.makeText(context, "Network Available", Toast.LENGTH_SHORT).show();
