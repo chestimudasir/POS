@@ -19,7 +19,7 @@ public class NetworkBroadCastReciever extends BroadcastReceiver {
 
         if (networkInfo.isAvailable() || info.isAvailable()){
             //Code for sync
-            Toast.makeText(this, "Connected", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Network Available", Toast.LENGTH_SHORT).show();
         }
     }
 }
