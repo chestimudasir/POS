@@ -7,7 +7,7 @@ import android.util.Log;
 public class UserConfig {
 
     private static SharedPreferences userConfig;
-     static Context c;
+    static Context c;
     private static SharedPreferences table_data;
 
     public static void init(Context context){
