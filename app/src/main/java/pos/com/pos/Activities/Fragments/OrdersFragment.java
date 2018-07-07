@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -30,6 +31,7 @@ import java.util.Random;
 import pos.com.pos.Activities.Database.OrdersDatabase.MenuDatabase.MenuDataBase;
 import pos.com.pos.Activities.Database.OrdersDatabase.OrderEntry;
 import pos.com.pos.Activities.Database.OrdersDatabase.OrdersDatabase;
+import pos.com.pos.Activities.Helpers.FirebaseAssistant;
 import pos.com.pos.Activities.Helpers.UserConfig;
 import pos.com.pos.R;
 
@@ -69,6 +71,8 @@ public class OrdersFragment extends Fragment {
         //Init vars
         final DecimalFormat df = new DecimalFormat("#.##");
         menuItemList = new ArrayList<>();
+        FirebaseAssistant.initFire(getActivity());
+
 
         //INIT BOTTOM SHEET
         final View bottomSheet = root.findViewById(R.id.bottomSheet);
@@ -97,9 +101,15 @@ public class OrdersFragment extends Fragment {
         final EditText cust_no = root.findViewById(R.id.editText8),
                 marker = root.findViewById(R.id.editText4),
                 discount = root.findViewById(R.id.editText7);
-        final AutoCompleteTextView items = root.findViewById(R.id.editText6);
-        initMenu();
-        ArrayAdapter adapter = new ArrayAdapter(getActivity(),R.layout.auto_complete, menuItems);
+
+        final Button sync = root.findViewById(R.id.sync);
+        sync.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAssistant syncManager = new FirebaseAssistant();
+                syncManager.syncOrders();
+            }
+        });
 
         //Add to ordered Items and database
         RecyclerView menu_items_order = root.findViewById(R.id.rv_items);
@@ -130,6 +140,13 @@ public class OrdersFragment extends Fragment {
             }
         };
         menu_items_order.setAdapter(adapterGlobalMenu);
+
+
+        //On Click menu Items and Auto Complete stuff
+        final AutoCompleteTextView items = root.findViewById(R.id.editText6);
+        //Get Menu
+        initMenu();
+        ArrayAdapter adapter = new ArrayAdapter(getActivity(),R.layout.auto_complete, menuItems);
 
         items.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -308,7 +325,7 @@ public class OrdersFragment extends Fragment {
         final OrderEntry orderEntry = new OrderEntry();
         orderEntry.setBalance(bal);
         orderEntry.setCust_num(cust_no);
-        orderEntry.setDate_time(new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()));
+        orderEntry.setDate_time(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
         orderEntry.setOrder_no(order_number);
         orderEntry.setDiscount(dcnt);
         orderEntry.setTable_no(table_no);

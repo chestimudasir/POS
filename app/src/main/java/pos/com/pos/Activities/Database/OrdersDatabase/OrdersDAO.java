@@ -15,7 +15,7 @@ public interface OrdersDAO {
 
 
     @Query("SELECT * FROM `order` WHERE synced = 0")
-    OrderEntry getAllUnsyncedOrders();
+    OrderEntry[] getAllUnsyncedOrders();
 
     @Query("SELECT * FROM `order`")
     OrderEntry[] getAllOrders();

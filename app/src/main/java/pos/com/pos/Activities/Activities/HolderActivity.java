@@ -11,10 +11,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import pos.com.pos.Activities.Fragments.DashBoard;
 import pos.com.pos.Activities.Fragments.MenuFragment;
 import pos.com.pos.Activities.Fragments.OrdersFragment;
-import pos.com.pos.Activities.Sync.SyncUtilities;
+import pos.com.pos.Activities.Helpers.FirebaseAssistant;
+import pos.com.pos.Activities.Helpers.UserConfig;
 import pos.com.pos.R;
 
 public class HolderActivity extends AppCompatActivity
@@ -34,6 +38,21 @@ public class HolderActivity extends AppCompatActivity
         android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.fragment_container, new DashBoard()).commit();
 
+        UserConfig.init(getApplicationContext());
+        UserConfig userConfig = new UserConfig();
+        userConfig.setTableNumber(8);
+        final FirebaseAssistant assistant = new FirebaseAssistant();
+
+        //Start Syncing After every 1 minute
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                assistant.syncOrders();
+            }
+        };
+
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(timerTask , 60000, 60000);
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -45,7 +64,7 @@ public class HolderActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //SYNC
-        SyncUtilities.scheduleSync(this);
+      //  SyncUtilities.scheduleSync(this);
     }
 
     @Override

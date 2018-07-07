@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.widget.Toast;
 
-import pos.com.pos.Activities.Sync.SyncUtilities;
 
 public class NetworkBroadCastReciever extends BroadcastReceiver {
     @Override
@@ -21,7 +20,7 @@ public class NetworkBroadCastReciever extends BroadcastReceiver {
 
         if (mobileNetwork.isAvailable() || wifi.isAvailable()){
             //Code for sync
-            Toast.makeText(context, "Network Available", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Network Available!", Toast.LENGTH_SHORT).show();
 
         }
     }

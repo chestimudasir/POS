@@ -1,6 +1,7 @@
 package pos.com.pos.Activities.DialogFragments;
 
 import android.app.DialogFragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,6 +16,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import pos.com.pos.Activities.Activities.HolderActivity;
 import pos.com.pos.R;
 
 public class SignInDialog extends DialogFragment {
@@ -32,6 +34,8 @@ public class SignInDialog extends DialogFragment {
         final EditText username = root.findViewById(R.id.email),
                 passwordTextView = root.findViewById(R.id.password);
 
+        auth = FirebaseAuth.getInstance();
+
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,17 +47,14 @@ public class SignInDialog extends DialogFragment {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
-                                        //Update UI
+                                        startActivity(new Intent(getActivity() , HolderActivity.class));
                                     } else {
-                                        //DO SOMETHING
                                     }
                                 }
                             });
                 }
             }
         });
-
-
          return root;
     }
 

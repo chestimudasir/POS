@@ -79,5 +79,8 @@ public class UserConfig {
         setupTables();
     }
 
+    public void syncUserConfigs(){
+
+    }
 
 }

@@ -9,7 +9,6 @@ import android.view.View;
 
 import pos.com.pos.Activities.DialogFragments.SignInDialog;
 import pos.com.pos.Activities.DialogFragments.SignUpDialog;
-import pos.com.pos.Activities.Sync.SyncUtilities;
 import pos.com.pos.R;
 
 public class FirstActivity extends AppCompatActivity implements View.OnClickListener {
