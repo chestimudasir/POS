@@ -105,7 +105,7 @@
                         android:id="@+id/next"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@drawable/baseline_chevron_right_white_48" />
+                        />
 
                 </RelativeLayout>
             </android.support.v7.widget.CardView>

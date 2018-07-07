@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import pos.com.pos.Activities.Fragments.DashBoard;
 import pos.com.pos.Activities.Fragments.MenuFragment;
 import pos.com.pos.Activities.Fragments.OrdersFragment;
+import pos.com.pos.Activities.Sync.SyncUtilities;
 import pos.com.pos.R;
 
 public class HolderActivity extends AppCompatActivity
@@ -42,6 +43,9 @@ public class HolderActivity extends AppCompatActivity
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //SYNC
+        SyncUtilities.scheduleSync(this);
     }
 
     @Override

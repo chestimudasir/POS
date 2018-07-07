@@ -23,7 +23,7 @@
                 android:layout_height="100dp"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
-                android:src="@drawable/burger" />
+                 />
 
             <TextView
                 android:id="@+id/horizontal_data_dash"
