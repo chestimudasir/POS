@@ -21,7 +21,7 @@ public class NetworkBroadCastReciever extends BroadcastReceiver {
 
         if (mobileNetwork.isAvailable() || wifi.isAvailable()){
             //Code for sync
-            Toast.makeText(context, "Network Available", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Network Available!", Toast.LENGTH_SHORT).show();
 
         }
     }
