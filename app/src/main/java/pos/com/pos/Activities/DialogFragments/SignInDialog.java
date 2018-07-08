@@ -17,6 +17,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 import pos.com.pos.Activities.Activities.HolderActivity;
+import pos.com.pos.Activities.Helpers.FirebaseAssistant;
+import pos.com.pos.Activities.Helpers.UserConfig;
 import pos.com.pos.R;
 
 public class SignInDialog extends DialogFragment {
@@ -47,8 +49,17 @@ public class SignInDialog extends DialogFragment {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
-                                        startActivity(new Intent(getActivity() , HolderActivity.class));
-                                    } else {
+
+                                        //Check if tables have been synced or not
+                                        if(new UserConfig().getTableCount() == 0) {
+                                            //Start Syncing User Configs and move on
+                                            //Also init Fire for layer use
+                                            FirebaseAssistant.initFire(getActivity());
+                                            FirebaseAssistant assistant = new FirebaseAssistant();
+                                            assistant.setUpUserConfig();
+                                        }else{
+                                            startActivity(new Intent(getActivity(), HolderActivity.class));
+                                        }
                                     }
                                 }
                             });

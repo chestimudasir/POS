@@ -9,6 +9,7 @@ import android.view.View;
 
 import pos.com.pos.Activities.DialogFragments.SignInDialog;
 import pos.com.pos.Activities.DialogFragments.SignUpDialog;
+import pos.com.pos.Activities.Helpers.UserConfig;
 import pos.com.pos.R;
 
 public class FirstActivity extends AppCompatActivity implements View.OnClickListener {
@@ -17,6 +18,8 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        UserConfig.init(getApplicationContext());
 
         findViewById(R.id.signin).setOnClickListener(this);
 

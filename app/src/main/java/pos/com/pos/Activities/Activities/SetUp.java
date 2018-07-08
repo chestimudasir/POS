@@ -13,6 +13,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
+import pos.com.pos.Activities.Helpers.FirebaseAssistant;
 import pos.com.pos.Activities.Helpers.UserConfig;
 import pos.com.pos.R;
 
@@ -26,6 +27,9 @@ public class SetUp extends AppCompatActivity {
         setContentView(R.layout.activity_set_up);
 
         final EditText password_admin = findViewById(R.id.admin_password);
+
+        //Init firebase's fire
+        final FirebaseAssistant firebaseAssistant = new FirebaseAssistant();
 
         findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +50,10 @@ public class SetUp extends AppCompatActivity {
                     userConfig.setupTables();
                     userConfig.setAdminPassword(admin_pass.getText().toString());
                     userConfig.setSetUpStatus(1);
+
+                    //Sync Table Count to DB
+                    firebaseAssistant.syncTableCount(userConfig.getTableCount());
+
 
                 }else {
                     userConfig.setSetUpStatus(0);
