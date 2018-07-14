@@ -30,7 +30,7 @@ public class FirebaseAssistant {
     private static DatabaseReference database;
     private static Context c;
 
-    //PUN INTENDED
+    //PUN INTENDE
     public static void initFire(Context context) {
         c = context;
         database = FirebaseDatabase.getInstance().getReference("Businesses");
