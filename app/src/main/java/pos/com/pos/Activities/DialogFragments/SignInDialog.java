@@ -1,7 +1,9 @@
 package pos.com.pos.Activities.DialogFragments;
 
 import android.app.DialogFragment;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -36,6 +38,8 @@ public class SignInDialog extends DialogFragment {
         final EditText username = root.findViewById(R.id.email),
                 passwordTextView = root.findViewById(R.id.password);
 
+        final SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Login_prefs" , Context.MODE_PRIVATE);
+
         auth = FirebaseAuth.getInstance();
 
         next.setOnClickListener(new View.OnClickListener() {
@@ -50,11 +54,15 @@ public class SignInDialog extends DialogFragment {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
 
+                                        FirebaseAssistant.initFire(getActivity());
+
+                                        sharedPreferences.edit().putInt("logged_in" ,1).apply();
+
+
                                         //Check if tables have been synced or not
                                         if(new UserConfig().getTableCount() == 0) {
                                             //Start Syncing User Configs and move on
                                             //Also init Fire for layer use
-                                            FirebaseAssistant.initFire(getActivity());
                                             FirebaseAssistant assistant = new FirebaseAssistant();
                                             assistant.setUpUserConfig();
                                         }else{

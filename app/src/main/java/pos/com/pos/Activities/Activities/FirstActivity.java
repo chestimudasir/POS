@@ -1,5 +1,7 @@
 package pos.com.pos.Activities.Activities;
 
+import android.content.ContentProvider;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;

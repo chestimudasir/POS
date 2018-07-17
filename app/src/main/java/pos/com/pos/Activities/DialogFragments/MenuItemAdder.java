@@ -23,7 +23,8 @@ public class MenuItemAdder extends DialogFragment {
         View root = inflater.inflate(R.layout.menu_adder_dialog, container, false);
 
         final EditText item_name = root.findViewById(R.id.item_name),
-                item_price = root.findViewById(R.id.item_price);
+                item_price = root.findViewById(R.id.item_price),
+        category = root.findViewById(R.id.category);
 
         root.findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,9 +36,9 @@ public class MenuItemAdder extends DialogFragment {
                     MenuItem menuItem = new MenuItem(item_name.getText().toString(),
                             Integer.parseInt(item_price.getText().toString()),
                             0,
-                            "Pizza",
+                            category.getText().toString(),
                             1,
-                            0);
+                            0, "General");
 
                     dataBase.MenuDOA().insertOrder(menuItem);
 
