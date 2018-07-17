@@ -2,29 +2,102 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/loginStatusBar"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Activities.Fragments.MenuFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/orders"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="27dp"
+            android:text="Menu"
+            android:textColor="@color/cardview_dark_background"
+            android:textSize="24dp"
+            android:textStyle="bold" />
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/menuRv"
             android:layout_width="match_parent"
-            android:layout_height="607dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true">
+            android:layout_marginTop="15dp"
+            android:layout_height="300dp"
+            android:layout_toEndOf="@+id/orders"
+            android:layout_below="@id/orders"
+            android:layout_above="@+id/add_item"
+            android:layout_alignParentStart="true">
 
         </android.support.v7.widget.RecyclerView>
 
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            app:cardCornerRadius="0dp"
+            app:cardElevation="4dp"
+            android:layout_marginTop="5dp"
+            android:id="@+id/timed_card"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true">
+
+            <RelativeLayout
+                android:id="@+id/timedEvents"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="15dp"
+                    android:text="Timed Events"
+                    android:textColor="@color/cardview_dark_background"
+                    android:textSize="23dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView24"
+                    android:layout_width="287dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignStart="@+id/textView13"
+                    android:layout_marginBottom="12dp"
+                    android:text="Timed events are events that run on the menu. If you want to add an item for a specific time which should be added to the menu at the specific time."
+                    android:textSize="9sp" />
+
+                <Button
+                    android:id="@+id/button3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:background="@android:color/transparent"
+                    android:text="Go"
+                    android:textColor="@color/colorAccent" />
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
         <Button
             android:id="@+id/add_item"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:layout_above="@+id/timed_card"
             android:layout_centerHorizontal="true"
-            android:text="Add item" />
+            android:layout_marginBottom="-5dp"
+            android:background="@android:color/transparent"
+            android:text="Add item"
+            android:textColor="@color/cardview_dark_background" />
+
+
 
     </RelativeLayout>
 

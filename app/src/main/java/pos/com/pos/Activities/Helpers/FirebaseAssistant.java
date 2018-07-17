@@ -20,6 +20,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.lang.ref.WeakReference;
 
 import pos.com.pos.Activities.Activities.HolderActivity;
+import pos.com.pos.Activities.Database.OrdersDatabase.MenuDatabase.MenuDataBase;
+import pos.com.pos.Activities.Database.OrdersDatabase.MenuDatabase.MenuItem;
 import pos.com.pos.Activities.Database.OrdersDatabase.OrderEntry;
 import pos.com.pos.Activities.Database.OrdersDatabase.OrdersDatabase;
 
@@ -33,7 +35,8 @@ public class FirebaseAssistant {
     //PUN INTENDE
     public static void initFire(Context context) {
         c = context;
-        database = FirebaseDatabase.getInstance().getReference("Businesses");
+        database = FirebaseDatabase.getInstance().getReference("Businesses")
+        .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
     }
 
     public void setUpUserConfig(){
@@ -106,7 +109,7 @@ public class FirebaseAssistant {
                     for (int i = 0; i < orderEntries.length ; i++) {
                         final int finalI = i;
 
-                        database.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                        database
                                 .child("Orders")
                                 .child(orderEntries[i].getDate_time())
                                 .push().setValue(orderEntries[i]).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -154,6 +157,41 @@ public class FirebaseAssistant {
         });
     }
 
+    @SuppressLint("StaticFieldLeak")
+    public void syncMenu(){
+        final MenuItem[] menuItems  =MenuDataBase.getInstance(c).MenuDOA().getAllUnsyncedOrders();
+        new AsyncTask<Void , Void , Void>(){
+            @Override
+            protected Void doInBackground(Void... voids) {
+
+                if (menuItems.length > 0){
+                    for (int i = 0; i < menuItems.length ; i++) {
+
+                        final int finalI1 = i;
+                        database.child("Menu")
+                               .child(menuItems[i].parent_category)
+                                .child(menuItems[i].child_category)
+                               .child(menuItems[i].item_name)
+                               .setValue(menuItems[i])
+                               .addOnCompleteListener(new OnCompleteListener<Void>() {
+                           @Override
+                           public void onComplete(@NonNull Task<Void> task) {
+                               menuItems[finalI1].synced = 1;
+                               MenuDataBase.getInstance(c).MenuDOA().updateMenu(menuItems[finalI1]);
+                           }
+                       });
+                    }
+                    Log.d("Sync Status" , "Menu Sync Complete");
+                }else {
+                    Log.d("Sync Status" , "No Menu items to sync");
+
+                }
+
+
+                return null;
+            }
+        }.execute();
+    }
 
 
 }

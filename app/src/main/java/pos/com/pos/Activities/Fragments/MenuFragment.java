@@ -1,20 +1,32 @@
 package pos.com.pos.Activities.Fragments;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import pos.com.pos.Activities.Database.OrdersDatabase.MenuDatabase.MenuDataBase;
 import pos.com.pos.Activities.DialogFragments.MenuItemAdder;
+import pos.com.pos.Activities.Helpers.FirebaseAssistant;
 import pos.com.pos.R;
+
+/*In menu what we need to achieve is the following :
+* 1: Show parent category (General etc)
+* 2: Show bottom bar when clicked on a parent category
+* 3: Inside the bottom bar when clicked on a child category change the recycler view adapter
+* 4: Show timed events that will show them that it is visible and understandable in a new bottom bar
+* 5: Show child category and children in a different view
+* 6: Sync the menu database with the online fire tree*/
 
 public class MenuFragment extends Fragment {
 
@@ -24,8 +36,6 @@ public class MenuFragment extends Fragment {
     public MenuFragment() {
         // Required empty public constructor
     }
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,14 +47,31 @@ public class MenuFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_menu, container, false);
+        final View bottomSheet = root.findViewById(R.id.bottomSheet);
+        final BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+
+        //Bottom View Views
+        root.findViewById(R.id.imageView2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+            }
+        });
 
         //Get ALL Menu items
         getMenu();
 
-        RecyclerView menu = root.findViewById(R.id.menuRv);
+        //Set menu title
+        final Typeface custom_font = Typeface.createFromAsset(getActivity().getAssets(),  "fonts/Product Sans Bold.ttf");
+
+        //Menu.. TITLE
+        TextView orders = root.findViewById(R.id.orders);
+        orders.setTypeface(custom_font);
+
+        final RecyclerView menu = root.findViewById(R.id.menuRv);
         menu.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        //SET ADAPTER
+        //Make and SET ADAPTER
         final RecyclerView.Adapter<ViewHolder> adapter = new RecyclerView.Adapter<ViewHolder>() {
             @NonNull
             @Override
@@ -55,9 +82,16 @@ public class MenuFragment extends Fragment {
             @Override
             public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
+                holder.parent_category.setTypeface(custom_font);
+                holder.parent_category.setText(menuItems[holder.getAdapterPosition()].parent_category);
+                holder.enter.setTypeface(custom_font);
+                holder.enter.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                    }
+                });
 
-                    holder.item_name.setText(menuItems[holder.getAdapterPosition()].item_name);
-                    holder.item_price.setText(String.valueOf(menuItems[holder.getAdapterPosition()].item_price));
 
             }
 
@@ -66,9 +100,6 @@ public class MenuFragment extends Fragment {
                 return menuItems.length;
             }
         };
-
-
-
         menu.setAdapter(adapter);
 
 
@@ -80,6 +111,14 @@ public class MenuFragment extends Fragment {
             }
         });
 
+        //Test
+        root.findViewById(R.id.add_item).setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                new FirebaseAssistant().syncMenu();
+                return true;
+            }
+        });
 
         return root;
     }
@@ -115,13 +154,14 @@ public class MenuFragment extends Fragment {
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView item_name;
+        public TextView parent_category;
         public TextView item_price;
+        public Button enter;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            item_name = itemView.findViewById(R.id.name_of_item);
-            item_price = itemView.findViewById(R.id.price_of_item);
+            parent_category = itemView.findViewById(R.id.name_of_item);
+            enter = itemView.findViewById(R.id.button4);
         }
     }
 

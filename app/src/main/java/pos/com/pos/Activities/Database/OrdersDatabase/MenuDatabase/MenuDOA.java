@@ -15,7 +15,7 @@ public interface MenuDOA {
 
 
     @Query("SELECT * FROM `menu` WHERE synced = 0")
-    MenuItem getAllUnsyncedOrders();
+    MenuItem[] getAllUnsyncedOrders();
 
     @Query("SELECT * FROM `menu`")
     MenuItem[] getMenu();
@@ -25,7 +25,7 @@ public interface MenuDOA {
      void insertOrder(MenuItem orderEntry);
 
     @Update
-    void updateOrder(MenuItem ordrEntry);
+    void updateMenu(MenuItem ordrEntry);
 
     @Delete
     void deleteOrder(MenuItem orderEntry);

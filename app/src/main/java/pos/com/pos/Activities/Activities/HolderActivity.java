@@ -37,6 +37,8 @@ public class HolderActivity extends AppCompatActivity
         android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.fragment_container, new DashBoard()).commit();
 
+        FirebaseAssistant.initFire(HolderActivity.this);
+
         final FirebaseAssistant assistant = new FirebaseAssistant();
 
         //Start Syncing After every 1 minute
