@@ -400,6 +400,7 @@ public class OrdersFragment extends Fragment {
             clickLayout = itemView.findViewById(R.id.clickacble_order);
             table_no = itemView.findViewById(R.id.textView14);
             cost_on_table = itemView.findViewById(R.id.textView15);
+
         }
     }
 
