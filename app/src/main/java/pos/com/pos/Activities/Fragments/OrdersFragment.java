@@ -40,6 +40,7 @@ public class OrdersFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
     ArrayList<pos.com.pos.Activities.Database.OrdersDatabase.MenuDatabase.MenuItem> menuItemList;
 
+
     //ORDER details that need to be global
     private int order_number;
     private RecyclerView.Adapter<ViewHolder> adapterGlobalTable;
@@ -55,6 +56,8 @@ public class OrdersFragment extends Fragment {
     public OrdersFragment() {
         // Required empty public constructor
     }
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -400,6 +403,7 @@ public class OrdersFragment extends Fragment {
             clickLayout = itemView.findViewById(R.id.clickacble_order);
             table_no = itemView.findViewById(R.id.textView14);
             cost_on_table = itemView.findViewById(R.id.textView15);
+
         }
     }
 

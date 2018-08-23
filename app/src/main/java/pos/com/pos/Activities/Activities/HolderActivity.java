@@ -11,6 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -23,8 +26,6 @@ import pos.com.pos.R;
 public class HolderActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, DashBoard.OnFragmentInteractionListener,
         MenuFragment.OnFragmentInteractionListener, OrdersFragment.OnFragmentInteractionListener {
-
-    BottomSheetBehavior bottomSheetBehavior;
 
 
     @Override
@@ -39,18 +40,13 @@ public class HolderActivity extends AppCompatActivity
 
         FirebaseAssistant.initFire(HolderActivity.this);
 
-        final FirebaseAssistant assistant = new FirebaseAssistant();
+        //call sync function
+        sync_orders();
 
-        //Start Syncing After every 1 minute
-        TimerTask timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                assistant.syncOrders();
-            }
-        };
-
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(timerTask , 60000, 60000);
+        //setuo bottom nav bar
+        AHBottomNavigation bottomNavigation = (AHBottomNavigation) findViewById(R.id.bottom_navigation);
+        AHBottomNavigationItem dashboard = new AHBottomNavigationItem("Dashboard", R.drawable.side_nav_bar);
+        bottomNavigation.addItem(dashboard);
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -61,8 +57,6 @@ public class HolderActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //SYNC
-      //  SyncUtilities.scheduleSync(this);
     }
 
     @Override
@@ -127,6 +121,24 @@ public class HolderActivity extends AppCompatActivity
 
     @Override
     public void onFragmentInteraction(Uri uri) {
+
+    }
+
+    public void sync_orders(){
+
+        final FirebaseAssistant assistant = new FirebaseAssistant();
+
+
+        //Start Syncing After every 1 minute
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                assistant.syncOrders();
+            }
+        };
+
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(timerTask , 60000, 60000);
 
     }
 }

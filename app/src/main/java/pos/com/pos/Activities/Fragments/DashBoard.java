@@ -41,12 +41,6 @@ public class DashBoard extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_dash_board, container, false);
 
-        //Initialize Starting Views and processes
-        init(root);
-
-        //Set up RVs
-        setUpRvHorizontal(root , inflater);
-        setUpVerticalRv(root , inflater);
         return root;
     }
 
@@ -89,77 +83,7 @@ public class DashBoard extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    void setUpRvHorizontal(View root , final LayoutInflater inflater){
-        RecyclerView recyclerView = root.findViewById(R.id.horizontalRvDash);
-        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL));
-        horizontal = new RecyclerView.Adapter<Viewholder>() {
-            @NonNull
-            @Override
-            public Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                return new Viewholder(inflater.inflate(R.layout.dashboard_horizontal , parent , false));
-            }
 
-            @Override
-            public void onBindViewHolder(@NonNull Viewholder holder, int position) {
-
-            }
-
-            @Override
-            public int getItemCount() {
-                return 5;
-            }
-        };
-
-        recyclerView.setAdapter(horizontal);
-    }
-
-    void setUpVerticalRv(View root , final LayoutInflater inflater){
-        RecyclerView recyclerView = root.findViewById(R.id.veritcalRvDash);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        vertical = new RecyclerView.Adapter<Viewholder>() {
-            @NonNull
-            @Override
-            public Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                return new Viewholder(inflater.inflate(R.layout.dashboard_vertical , parent , false));
-            }
-
-            @Override
-            public void onBindViewHolder(@NonNull Viewholder holder, int position) {
-
-            }
-
-            @Override
-            public int getItemCount() {
-                return 5;
-            }
-        };
-
-        recyclerView.setAdapter(vertical);
-    }
-    void refreshHorizontal(){
-        horizontal.notifyDataSetChanged();
-    }
-
-    void init(View root){
-
-        UserConfig.init(getActivity());
-
-        UserConfig userConfig = new UserConfig();
-        if (userConfig.getSetUpStatus() == 1){
-            root.findViewById(R.id.complete_profile).setVisibility(View.GONE);
-        }
-
-        TextView tx = root.findViewById(R.id.textView10);
-
-        Typeface custom_font = Typeface.createFromAsset(getActivity().getAssets(),  "fonts/Product Sans Regular.ttf");
-        tx.setText("Good Morning, Books and Bricks");
-        tx.setTypeface(custom_font);
-
-        TextView tx1 = root.findViewById(R.id.textView11);
-
-        Typeface custom_font2 = Typeface.createFromAsset(getActivity().getAssets(),  "fonts/Product Sans Regular.ttf");
-        tx1.setTypeface(custom_font2);
-    }
 
 
     class Viewholder extends RecyclerView.ViewHolder{
