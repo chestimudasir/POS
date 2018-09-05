@@ -18,6 +18,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import pos.com.pos.Activities.Fragments.DashBoard;
+import pos.com.pos.Activities.Fragments.DashBoardContent;
+import pos.com.pos.Activities.Fragments.Dashboard_Notifications;
 import pos.com.pos.Activities.Fragments.MenuFragment;
 import pos.com.pos.Activities.Fragments.OrdersFragment;
 import pos.com.pos.Activities.Helpers.FirebaseAssistant;
@@ -25,7 +27,8 @@ import pos.com.pos.R;
 
 public class HolderActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, DashBoard.OnFragmentInteractionListener,
-        MenuFragment.OnFragmentInteractionListener, OrdersFragment.OnFragmentInteractionListener {
+        MenuFragment.OnFragmentInteractionListener, OrdersFragment.OnFragmentInteractionListener ,Dashboard_Notifications.OnFragmentInteractionListener,
+        DashBoardContent.OnFragmentInteractionListener{
 
 
     @Override
@@ -46,7 +49,14 @@ public class HolderActivity extends AppCompatActivity
         //setuo bottom nav bar
         AHBottomNavigation bottomNavigation = (AHBottomNavigation) findViewById(R.id.bottom_navigation);
         AHBottomNavigationItem dashboard = new AHBottomNavigationItem("Dashboard", R.drawable.side_nav_bar);
+        AHBottomNavigationItem dashboard1 = new AHBottomNavigationItem("Dashboard", R.drawable.side_nav_bar);
+        AHBottomNavigationItem dashboard2 = new AHBottomNavigationItem("Dashboard", R.drawable.side_nav_bar);
+
+
+
         bottomNavigation.addItem(dashboard);
+        bottomNavigation.addItem(dashboard1);
+        bottomNavigation.addItem(dashboard2);
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

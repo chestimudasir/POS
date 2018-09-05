@@ -11,25 +11,36 @@
         android:layout_height="match_parent"
         android:background="@color/loginStatusBar">
 
-
-        <android.support.v7.widget.CardView
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="114dp"></android.support.v7.widget.CardView>
-        <Button
-            android:id="@+id/complete_profile"
-            android:background="?selectableItemBackground"
-
+        <TextView
             android:layout_width="wrap_content"
+            android:id="@+id/title_fragment"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginEnd="13dp"
-            android:textColor="#65acf2"
-            android:layout_marginTop="22dp"
-            android:text="Complete Setup >" />
+            android:text="Dashboard"
+            android:textSize="23dp"
+            android:textStyle="bold"
+            android:textColor="#000"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="25dp"/>
+
+        <android.support.design.widget.TabLayout
+            android:layout_width="match_parent"
+            android:id="@+id/tablayout_dashboard"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            app:tabBackground="@android:color/transparent"
+            app:tabIndicatorColor="#000"
+            app:tabIndicatorFullWidth="false"
+            app:tabSelectedTextColor="#000"
+            android:layout_marginTop="5dp"
+            app:tabMode="fixed"
+            android:layout_below="@+id/title_fragment" />
+
+        <android.support.v4.view.ViewPager
+            android:layout_below="@+id/tablayout_dashboard"
+            android:layout_width="match_parent"
+            android:id="@+id/viewpager_dash"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_height="match_parent" />
 
     </RelativeLayout>
 

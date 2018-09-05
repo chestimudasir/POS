@@ -5,7 +5,12 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -40,6 +45,18 @@ public class DashBoard extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_dash_board, container, false);
+        final Typeface custom_font = Typeface.createFromAsset(getActivity().getAssets(),  "fonts/Product Sans Regular.ttf");
+
+        //set layout root title
+        TextView title_fragment = root.findViewById(R.id.title_fragment);
+        title_fragment.setTypeface(custom_font);
+
+        //Set up tab layout
+
+        TabLayout tabLayout = root.findViewById(R.id.tablayout_dashboard);
+        ViewPager viewPager = root.findViewById(R.id.viewpager_dash);
+        viewPager.setAdapter(new adapterTab(getFragmentManager()));
+        tabLayout.setupWithViewPager(viewPager);
 
         return root;
     }
@@ -90,6 +107,42 @@ public class DashBoard extends Fragment {
 
         public Viewholder(View itemView) {
             super(itemView);
+        }
+    }
+
+    class adapterTab extends FragmentStatePagerAdapter{
+        public adapterTab(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int i) {
+            switch (i){
+                case 0:
+                    return new DashBoardContent();
+                case 1:
+                    return new Dashboard_Notifications();
+
+            }
+
+            return null;
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
+        }
+
+        @Nullable
+        @Override
+        public CharSequence getPageTitle(int position) {
+            switch (position){
+                case 0:
+                    return "Home";
+                case 1:
+                    return "Notifications";
+            }
+            return null;
         }
     }
 }
