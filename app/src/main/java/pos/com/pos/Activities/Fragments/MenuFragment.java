@@ -48,15 +48,7 @@ public class MenuFragment extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_menu, container, false);
         final View bottomSheet = root.findViewById(R.id.bottomSheet);
-        final BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
 
-        //Bottom View Views
-        root.findViewById(R.id.imageView2).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
-            }
-        });
 
         //Get ALL Menu items
         getMenu();
@@ -88,7 +80,6 @@ public class MenuFragment extends Fragment {
                 holder.enter.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                     }
                 });
 

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
@@ -65,6 +66,7 @@ public class OrdersFragment extends Fragment {
 
     }
 
+    @SuppressLint("StaticFieldLeak")
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
@@ -72,6 +74,15 @@ public class OrdersFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_orders, container, false);
 
         //Init vars
+        //Do menial stuff async
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+
+
+                return null;
+            }
+        }.execute();
         final DecimalFormat df = new DecimalFormat("#.##");
         menuItemList = new ArrayList<>();
         FirebaseAssistant.initFire(getActivity());
@@ -106,6 +117,7 @@ public class OrdersFragment extends Fragment {
                 discount = root.findViewById(R.id.editText7);
 
         final Button sync = root.findViewById(R.id.sync);
+
         sync.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,12 +128,8 @@ public class OrdersFragment extends Fragment {
 
         //Add to ordered Items and database
         RecyclerView menu_items_order = root.findViewById(R.id.rv_items);
-         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity()) {
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-        };
+         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+
         menu_items_order.setLayoutManager(linearLayoutManager);
 
         adapterGlobalMenu = new RecyclerView.Adapter<ViewHolderMenu>() {

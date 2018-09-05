@@ -24,18 +24,8 @@
         <activity
             android:name=".Activities.Activities.HolderActivity"
             android:label="@string/title_activity_holder"
-            android:theme="@style/MainActivity"></activity>
-        <receiver android:name=".Activities.Helpers.NetworkBroadCastReciever"  android:exported="false">
-            <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
-            </intent-filter>
-        </receiver>
-        <service android:name=".Activities.Sync.OfflineDatabaseSyncJob"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>
-            </intent-filter>
-        </service>
+            android:theme="@style/MainActivity" />
+
     </application>
 
 

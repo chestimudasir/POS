@@ -29,6 +29,7 @@ public class SetUp extends AppCompatActivity {
         final EditText password_admin = findViewById(R.id.admin_password);
 
         //Init firebase's fire
+        FirebaseAssistant.initFire(getApplicationContext());
         final FirebaseAssistant firebaseAssistant = new FirebaseAssistant();
 
         findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {

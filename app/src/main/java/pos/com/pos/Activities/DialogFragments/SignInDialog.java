@@ -38,7 +38,7 @@ public class SignInDialog extends DialogFragment {
         final EditText username = root.findViewById(R.id.email),
                 passwordTextView = root.findViewById(R.id.password);
 
-        final SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Login_prefs" , Context.MODE_PRIVATE);
+        final SharedPreferences sharedPreferences = getActivity().getSharedPreferences("login_prefs" , Context.MODE_PRIVATE);
 
         auth = FirebaseAuth.getInstance();
 

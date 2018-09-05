@@ -7,11 +7,10 @@ import android.util.Log;
 public class UserConfig {
 
     private static SharedPreferences userConfig;
-    static Context c;
     private static SharedPreferences table_data;
 
     public static void init(Context context){
-        c = context;
+
         table_data = context.getSharedPreferences("tables", Context.MODE_PRIVATE);
         userConfig = context.getSharedPreferences("userconfig" , Context.MODE_PRIVATE);
     }
