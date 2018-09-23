@@ -2,8 +2,11 @@ package pos.com.pos.Activities.Activities;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -47,39 +50,34 @@ public class HolderActivity extends AppCompatActivity
         sync_orders();
 
         //setuo bottom nav bar
-        AHBottomNavigation bottomNavigation = (AHBottomNavigation) findViewById(R.id.bottom_navigation);
-        AHBottomNavigationItem dashboard = new AHBottomNavigationItem("Dashboard", R.drawable.side_nav_bar);
-        AHBottomNavigationItem dashboard1 = new AHBottomNavigationItem("Dashboard", R.drawable.side_nav_bar);
-        AHBottomNavigationItem dashboard2 = new AHBottomNavigationItem("Dashboard", R.drawable.side_nav_bar);
-        bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomnavbar);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public boolean onTabSelected(int position, boolean wasSelected) {
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
-                final android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                FragmentTransaction transaction1 = getSupportFragmentManager().beginTransaction();
 
-                switch (position){
-                    case 0:
-                        transaction.replace(R.id.fragment_container , new DashBoard()).commit();
+                switch (menuItem.getItemId()){
+                    case R.id.nav_gallery:
+
+                        transaction1.replace(R.id.fragment_container, new DashBoard());
+                        break;
+                    case R.id.nav_slideshow:
+                        transaction1.replace(R.id.fragment_container , new OrdersFragment());
+                        break;
+                    case R.id.nav_manage:
+                        transaction1.replace(R.id.fragment_container, new MenuFragment());
                         break;
 
-                        case 1:
-                            transaction.replace(R.id.fragment_container ,new OrdersFragment()).commit();
-                            break;
-                    case 2 :
-                        transaction.replace(R.id.fragment_container , new MenuFragment()).commit();
+
 
                 }
 
-
+                transaction1.commit();
                 return true;
             }
         });
-
-
-        bottomNavigation.addItem(dashboard);
-        bottomNavigation.addItem(dashboard1);
-        bottomNavigation.addItem(dashboard2);
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, null, R.string.navigation_drawer_open, R.string.navigation_drawer_close);

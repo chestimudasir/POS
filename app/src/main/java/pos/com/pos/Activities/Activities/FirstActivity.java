@@ -11,6 +11,7 @@ import android.view.View;
 
 import pos.com.pos.Activities.DialogFragments.SignInDialog;
 import pos.com.pos.Activities.DialogFragments.SignUpDialog;
+import pos.com.pos.Activities.Helpers.FontsOverride;
 import pos.com.pos.Activities.Helpers.UserConfig;
 import pos.com.pos.R;
 
@@ -22,6 +23,11 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_main);
 
         UserConfig.init(getApplicationContext());
+
+        FontsOverride.setDefaultFont(this, "DEFAULT", "fonts/Product Sans Regular.ttf");
+        FontsOverride.setDefaultFont(this, "MONOSPACE", "fonts/Product Sans Regular.ttf");
+        FontsOverride.setDefaultFont(this, "SERIF", "fonts/Product Sans Regular.ttf");
+        FontsOverride.setDefaultFont(this, "SANS_SERIF", "fonts/Product Sans Regular.ttf");
 
         findViewById(R.id.signin).setOnClickListener(this);
 

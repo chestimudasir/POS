@@ -51,12 +51,6 @@ public class DashBoard extends Fragment {
         TextView title_fragment = root.findViewById(R.id.title_fragment);
         title_fragment.setTypeface(custom_font);
 
-        //Set up tab layout
-
-        TabLayout tabLayout = root.findViewById(R.id.tablayout_dashboard);
-        ViewPager viewPager = root.findViewById(R.id.viewpager_dash);
-        viewPager.setAdapter(new adapterTab(getFragmentManager()));
-        tabLayout.setupWithViewPager(viewPager);
 
         return root;
     }
