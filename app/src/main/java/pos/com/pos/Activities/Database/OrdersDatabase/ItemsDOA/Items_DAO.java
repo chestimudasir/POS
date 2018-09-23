@@ -1,11 +1,12 @@
-package pos.com.pos.Activities.Database.OrdersDatabase;
+package pos.com.pos.Activities.Database.OrdersDatabase.ItemsDOA;
 
 
-import android.arch.persistence.room.Dao;
-import android.arch.persistence.room.Delete;
-import android.arch.persistence.room.Insert;
-import android.arch.persistence.room.Query;
-import android.arch.persistence.room.Update;
+import androidx.room.Dao;
+import androidx.room.Delete;
+import androidx.room.Insert;
+import androidx.room.Query;
+import androidx.room.Update;
+import pos.com.pos.Activities.Database.OrdersDatabase.OrdersDatabase.Order_Items;
 
 import java.util.List;
 

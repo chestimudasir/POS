@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,8 +22,8 @@ import java.lang.ref.WeakReference;
 import pos.com.pos.Activities.Activities.HolderActivity;
 import pos.com.pos.Activities.Database.OrdersDatabase.MenuDatabase.MenuDataBase;
 import pos.com.pos.Activities.Database.OrdersDatabase.MenuDatabase.MenuItem;
-import pos.com.pos.Activities.Database.OrdersDatabase.OrderEntry;
-import pos.com.pos.Activities.Database.OrdersDatabase.OrdersDatabase;
+import pos.com.pos.Activities.Database.OrdersDatabase.OrdersDatabase.OrderEntry;
+import pos.com.pos.Activities.Database.OrdersDatabase.OrdersDatabase.OrdersDatabase;
 
 import static android.content.ContentValues.TAG;
 

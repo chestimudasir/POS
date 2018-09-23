@@ -2,33 +2,32 @@ package pos.com.pos.Activities.Activities;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
+import com.google.android.material.navigation.NavigationView;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
-
 import java.util.Timer;
 import java.util.TimerTask;
 
+import me.anwarshahriar.calligrapher.Calligrapher;
 import pos.com.pos.Activities.Fragments.DashBoard;
-import pos.com.pos.Activities.Fragments.DashBoardContent;
-import pos.com.pos.Activities.Fragments.Dashboard_Notifications;
 import pos.com.pos.Activities.Fragments.MenuFragment;
 import pos.com.pos.Activities.Fragments.OrdersFragment;
 import pos.com.pos.Activities.Helpers.FirebaseAssistant;
 import pos.com.pos.R;
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 public class HolderActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, DashBoard.OnFragmentInteractionListener,
-        MenuFragment.OnFragmentInteractionListener, OrdersFragment.OnFragmentInteractionListener ,Dashboard_Notifications.OnFragmentInteractionListener,
-        DashBoardContent.OnFragmentInteractionListener{
+        implements
+
+        NavigationView.OnNavigationItemSelectedListener,
+        DashBoard.OnFragmentInteractionListener,
+        MenuFragment.OnFragmentInteractionListener,
+        OrdersFragment.OnFragmentInteractionListener {
 
 
     @Override
@@ -36,9 +35,9 @@ public class HolderActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_holder);
 
-        //Check if the guy completed his setup via User Config
+   //Check if the guy completed his setup via User Config
 
-        final android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.fragment_container, new DashBoard()).commit();
 
         FirebaseAssistant.initFire(HolderActivity.this);
@@ -47,38 +46,6 @@ public class HolderActivity extends AppCompatActivity
         sync_orders();
 
         //setuo bottom nav bar
-        AHBottomNavigation bottomNavigation = (AHBottomNavigation) findViewById(R.id.bottom_navigation);
-        AHBottomNavigationItem dashboard = new AHBottomNavigationItem("Dashboard", R.drawable.side_nav_bar);
-        AHBottomNavigationItem dashboard1 = new AHBottomNavigationItem("Dashboard", R.drawable.side_nav_bar);
-        AHBottomNavigationItem dashboard2 = new AHBottomNavigationItem("Dashboard", R.drawable.side_nav_bar);
-        bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
-            @Override
-            public boolean onTabSelected(int position, boolean wasSelected) {
-
-                final android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
-                switch (position){
-                    case 0:
-                        transaction.replace(R.id.fragment_container , new DashBoard()).commit();
-                        break;
-
-                        case 1:
-                            transaction.replace(R.id.fragment_container ,new OrdersFragment()).commit();
-                            break;
-                    case 2 :
-                        transaction.replace(R.id.fragment_container , new MenuFragment()).commit();
-
-                }
-
-
-                return true;
-            }
-        });
-
-
-        bottomNavigation.addItem(dashboard);
-        bottomNavigation.addItem(dashboard1);
-        bottomNavigation.addItem(dashboard2);
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -129,11 +96,14 @@ public class HolderActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
         if (id == R.id.nav_camera) {
+
             transaction.replace(R.id.fragment_container, new MenuFragment()).commit();
+
         } else if (id == R.id.nav_gallery) {
+
             transaction.replace(R.id.fragment_container, new OrdersFragment()).commit();
 
         } else if (id == R.id.nav_slideshow) {
@@ -148,6 +118,7 @@ public class HolderActivity extends AppCompatActivity
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+
         return true;
     }
 
