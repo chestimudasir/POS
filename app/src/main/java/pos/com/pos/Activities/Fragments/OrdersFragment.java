@@ -47,10 +47,11 @@ public class OrdersFragment extends Fragment {
     private RecyclerView.Adapter<ViewHolder> adapterGlobalTable;
     private BottomSheetBehavior<View> bottomSheetBehavior;
     private RecyclerView.Adapter<ViewHolderMenu> adapterGlobalMenu;
+
+
     //Arrays for menu String and menu Objects
     private String[] menuItems;
     private pos.com.pos.Activities.Database.OrdersDatabase.MenuDatabase.MenuItem[] menuItemsObjects;
-
     private int table_current;
     private float current_table_cost=0;
 
@@ -83,6 +84,7 @@ public class OrdersFragment extends Fragment {
                 return null;
             }
         }.execute();
+
         final DecimalFormat df = new DecimalFormat("#.##");
         menuItemList = new ArrayList<>();
         FirebaseAssistant.initFire(getActivity());
@@ -391,6 +393,7 @@ public class OrdersFragment extends Fragment {
     }
 
     pos.com.pos.Activities.Database.OrdersDatabase.MenuDatabase.MenuItem searchAndGet(String name){
+
         for (pos.com.pos.Activities.Database.OrdersDatabase.MenuDatabase.MenuItem item :
                 menuItemsObjects){
             if (item.item_name.equals(name)){

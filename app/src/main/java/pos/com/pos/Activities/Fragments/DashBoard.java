@@ -41,11 +41,9 @@ public class DashBoard extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_dash_board, container, false);
 
-
-        Calligrapher calligrapher = new Calligrapher(LayoutInflater.from(getActivity()).getContext());
-        calligrapher.setFont(root.findViewById(R.id.tittle) , "fonts/Product Sans Bold.ttf");
-
-
+        //set fonts
+        Calligrapher calligrapher = new Calligrapher(container.getContext());
+        calligrapher.setFont(root , "fonts/Product Sans Bold.ttf");
 
         return root;
     }

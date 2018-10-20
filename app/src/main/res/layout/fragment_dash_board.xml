@@ -18,7 +18,8 @@
         fontPath="fonts/Product Sans Bold.ttf"
         android:text="Dashboard"
         android:textSize="23dp"
-        android:layout_margin="20dp"/>
+        android:layout_margin="20dp"
+        tools:ignore="MissingPrefix" />
 
     <ScrollView
         android:layout_below="@+id/tittle"

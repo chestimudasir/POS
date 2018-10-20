@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="3dp"
+        app:strokeWidth="0.6dp"
+        app:strokeColor="@android:color/black"
+        android:layout_height="match_parent"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="2dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="13dp"
+                android:text="Cuckoo chickens"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/textView7"
+                android:layout_alignEnd="@+id/textView7"
+                android:layout_marginStart="0dp"
+                android:layout_below="@id/textView7"
+                android:layout_marginEnd="0dp"
+                android:layout_marginBottom="10dp"
+                android:text="Since 1898" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/place_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textView17"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="22dp"
+                android:layout_marginBottom="17dp"
+                android:elevation="0dp"
+                android:text="Place order"
+                android:textColor="@android:color/black"
+                app:backgroundTint="@android:color/transparent"
+                app:strokeColor="@android:color/black"
+                app:strokeWidth="1dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/place_order2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textView17"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="153dp"
+                android:layout_marginBottom="17dp"
+                android:elevation="0dp"
+                android:text="Place order"
+                android:textColor="@android:color/black"
+                app:backgroundTint="@android:color/transparent"
+                app:strokeColor="@android:color/black"
+                app:strokeWidth="1dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/message_vendor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textView17"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="284dp"
+                android:layout_marginBottom="18dp"
+                android:elevation="0dp"
+                android:text="Talk "
+                android:textColor="@android:color/black"
+                app:backgroundTint="@android:color/transparent"
+                app:strokeColor="@android:color/black"
+                app:strokeWidth="1dp" />
+
+
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
+
+</LinearLayout>
