@@ -39,14 +39,9 @@ public class FirstActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("fonts/Product Sans Bold.ttf")
-                .setFontAttrId(R.attr.fontPath)
-                .build());
-
-
-
+        Calligrapher calligrapher = new Calligrapher(this);
+        calligrapher.setFont(this , "fonts/Product Sans Bold.ttf" , true);
+        
         //Init config
         UserConfig.init(getApplicationContext());
 

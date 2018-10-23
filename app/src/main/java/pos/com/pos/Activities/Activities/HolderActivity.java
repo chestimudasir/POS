@@ -67,6 +67,7 @@ public class HolderActivity extends AppCompatActivity
         RecyclerView.Adapter<ViewHolder> adapter = initializeNavbar((TextView) findViewById(R.id.textView)
                 ,bottomSheetBehavior, calligrapher  );
 
+        
 
 
     }
@@ -237,6 +238,8 @@ public class HolderActivity extends AppCompatActivity
         }
 
     }
+
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/nav_gallery"
-        android:icon="@drawable/ic_menu_gallery"
+        android:id="@+id/Vendors"
+        android:icon="@drawable/baseline_assignment_black_18dp"
+        android:title="Vendors" />
+    <item
+        android:id="@+id/Orders"
+        android:icon="@drawable/baseline_local_shipping_black_18dp"
         android:title="Orders" />
     <item
-        android:id="@+id/nav_slideshow"
-        android:icon="@drawable/ic_menu_slideshow"
-        android:title="Slideshow" />
-    <item
-        android:id="@+id/nav_manage"
-        android:icon="@drawable/ic_menu_manage"
-        android:title="Tools" />
+        android:id="@+id/Explore"
+        android:icon="@drawable/baseline_explore_black_18dp"
+        android:title="Explore" />
 </menu>

@@ -2,68 +2,29 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@android:color/white"
     android:layout_height="match_parent"
     tools:context=".Activities.Fragments.VendorsParent">
 
-    <ScrollView
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/fl" />
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <RelativeLayout
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
             android:layout_width="match_parent"
-            android:layout_height="1000dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/vendor_title"
-
-                android:layout_margin="20dp"
-                android:textSize="24dp"
-                android:text="Your Vendors "
-                />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:id="@+id/your_vendors"
-                android:layout_below="@+id/vendor_title"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/explore_vendors"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/your_vendors"
-                android:layout_marginTop="20dp"
-                android:layout_alignStart="@+id/vendor_title"
-                android:text="Explore "
-                android:textSize="24dp" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:id="@+id/explore_vendors_grid"
-                android:layout_below="@+id/explore_vendors"
-                android:layout_marginTop="10dp"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="19dp"
-                android:layout_marginEnd="18dp"
-                android:padding="10dp"
-                android:text="See All"
-                android:textSize="13dp"
-                android:background="?selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
-                />
-        </RelativeLayout>
-
-
-    </ScrollView>
-
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/bottom_navigation"
+            app:itemIconTint="@android:color/black"
+            app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
+            app:itemTextColor="@android:color/black"
+            app:menu="@menu/navigation_bar" />
+    </RelativeLayout>
 </FrameLayout>

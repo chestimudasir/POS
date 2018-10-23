@@ -23,8 +23,56 @@
           }
         },
         {
+          "client_id": "999998154064-4drud41bt4a0rajhro15s28oshev41qo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pos.com.pos",
+            "certificate_hash": "e2ec4caa981a445035b0f308d3b5e4c90065b007"
+          }
+        },
+        {
           "client_id": "999998154064-4ove0c5eu7i0piosa3qt9cjd1henmdcr.apps.googleusercontent.com",
           "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApKCvFcveQtHCXRoXntWaNXzg2giDWzCE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "999998154064-4ove0c5eu7i0piosa3qt9cjd1henmdcr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:999998154064:android:8780efecdeaf9b8c",
+        "android_client_info": {
+          "package_name": "vendors.com.vendorsmanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "999998154064-pu8mef7j53hp2rnig50bhs869v5gs68h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "vendors.com.vendorsmanager",
+            "certificate_hash": "e2ec4caa981a445035b0f308d3b5e4c90065b007"
+          }
         },
         {
           "client_id": "999998154064-4ove0c5eu7i0piosa3qt9cjd1henmdcr.apps.googleusercontent.com",
