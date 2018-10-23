@@ -1,6 +1,7 @@
 package pos.com.pos.Activities.Fragments;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -59,43 +60,49 @@ VendorsOwn.OnFragmentInteractionListener ,VendorsExplore.OnFragmentInteractionLi
         Calligrapher calligrapher = new Calligrapher(container.getContext());
         calligrapher.setFont(root , "fonts/Product Sans Bold.ttf");
 
+        setupNavigation(root , calligrapher);
+
         return root;
     }
 
-    private void setupNavigation(View root){
+    private void setupNavigation(View root , Calligrapher calligrapher){
 
-//        AHBottomNavigation bottomNavigation = root.findViewById(R.id.bottom_navigation);
-//
-//        AHBottomNavigationItem item1 = new AHBottomNavigationItem("Vendors", R.drawable.baseline_assignment_black_18dp, R.color.loginStatusBar);
-//        AHBottomNavigationItem item2 = new AHBottomNavigationItem("Orders", R.drawable.baseline_local_shipping_black_18dp, R.color.loginStatusBar);
-//        AHBottomNavigationItem item3 = new AHBottomNavigationItem("Explore", R.drawable.baseline_explore_black_18dp, R.color.loginStatusBar);
-//
-//        bottomNavigation.addItem(item1);
-//        bottomNavigation.addItem(item2);
-//        bottomNavigation.addItem(item3);
+        AHBottomNavigation bottomNavigation = root.findViewById(R.id.botton_nav_bar);
 
-        //Additional properties\
+        bottomNavigation.setTitleState(AHBottomNavigation.TitleState.SHOW_WHEN_ACTIVE);
 
-        BottomNavigationView navigationView = root.findViewById(R.id.bottom_navigation);
-        navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem("Vendors", R.drawable.baseline_assignment_black_18dp, R.color.loginStatusBar);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem("Orders", R.drawable.baseline_local_shipping_black_18dp, R.color.loginStatusBar);
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem("Explore", R.drawable.baseline_explore_black_18dp, R.color.loginStatusBar);
+
+
+        calligrapher.setFont(bottomNavigation , "fonts/Product Sans Bold.ttf");
+
+        bottomNavigation.setAccentColor(Color.parseColor("#000000"));
+        bottomNavigation.setInactiveColor(Color.parseColor("#FF424242"));
+
+        bottomNavigation.addItem(item1);
+        bottomNavigation.addItem(item2);
+        bottomNavigation.addItem(item3);
+
+        bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+            public boolean onTabSelected(int position, boolean wasSelected) {
+                FragmentTransaction transaction =getFragmentManager().beginTransaction();
 
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-
-                switch (menuItem.getItemId()){
-                    case R.id.Vendors:
+                switch (position){
+                    case 0:
                         transaction.replace(R.id.fl , new VendorsOwn()).commit();
                         break;
-                    case R.id.Orders:
+                    case 1:
                         transaction.replace(R.id.fl , new VendorOrders()).commit();
                         break;
-                    case R.id.Explore:
-                        transaction.replace(R.id.fl , new VendorsOwn()).commit();
+                    case 2:
+                        transaction.replace(R.id.fl , new VendorsExplore()).commit();
                         break;
                 }
-                return true;
-            }
+                return true;            }
         });
 
 

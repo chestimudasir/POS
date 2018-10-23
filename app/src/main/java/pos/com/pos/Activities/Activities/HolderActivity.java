@@ -28,6 +28,9 @@ import me.anwarshahriar.calligrapher.Calligrapher;
 import pos.com.pos.Activities.Fragments.DashBoard;
 import pos.com.pos.Activities.Fragments.MenuFragment;
 import pos.com.pos.Activities.Fragments.OrdersFragment;
+import pos.com.pos.Activities.Fragments.VendorOrders;
+import pos.com.pos.Activities.Fragments.VendorsExplore;
+import pos.com.pos.Activities.Fragments.VendorsOwn;
 import pos.com.pos.Activities.Fragments.VendorsParent;
 import pos.com.pos.Activities.Helpers.FirebaseAssistant;
 import pos.com.pos.R;
@@ -38,7 +41,8 @@ public class HolderActivity extends AppCompatActivity
         NavigationView.OnNavigationItemSelectedListener,
         DashBoard.OnFragmentInteractionListener,
         MenuFragment.OnFragmentInteractionListener,
-        OrdersFragment.OnFragmentInteractionListener, VendorsParent.OnFragmentInteractionListener{
+        OrdersFragment.OnFragmentInteractionListener, VendorsParent.OnFragmentInteractionListener,
+        VendorsExplore.OnFragmentInteractionListener ,VendorsOwn.OnFragmentInteractionListener , VendorOrders.OnFragmentInteractionListener {
 
 
     @Override
