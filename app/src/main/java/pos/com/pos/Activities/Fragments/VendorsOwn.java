@@ -163,6 +163,7 @@ public class VendorsOwn extends Fragment {
 
                 //set vendor text
                 holder.name.setText(vendors.get(holder.getAdapterPosition()).name);
+                calligrapher.setFont(holder.name,"fonts/Product Sans Bold.ttf");
 
             }
 
@@ -171,6 +172,8 @@ public class VendorsOwn extends Fragment {
                 return vendors.size();
             }
         };
+
+        calligrapher.setFont(own_vendors,"fonts/Product Sans Bold.ttf");
 
         own_vendors.setAdapter(adapter);
 

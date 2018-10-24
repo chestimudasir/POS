@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,7 +65,7 @@ public class VendorOrders extends Fragment {
 
     //This one method gets the data and updates the rv on any change call this once to get orders
 
-    private ArrayList<Vendors_orders_model> getVendorOrders(View root, final LayoutInflater inflater , final Calligrapher calligrapher){
+    private ArrayList<Vendors_orders_model> getVendorOrders(final View root, final LayoutInflater inflater , final Calligrapher calligrapher){
 
         final ArrayList<Vendors_orders_model> orders = new ArrayList<>();
 
@@ -78,7 +80,7 @@ public class VendorOrders extends Fragment {
             @NonNull
             @Override
             public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                return new ViewHolder(inflater.inflate(R.layout.vendor_holder ,parent , false) );
+                return new ViewHolder(inflater.inflate(R.layout.vendor_orders_holder ,parent , false) );
             }
 
             @Override
@@ -89,6 +91,11 @@ public class VendorOrders extends Fragment {
 
                 //set vendor text
                 holder.name.setText(orders.get(holder.getAdapterPosition()).uid_vendor);
+
+                //Set items
+                ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(root.getContext(),android.R.layout.simple_list_item_1,
+                        orders.get(holder.getAdapterPosition()).items);
+                holder.items.setAdapter(adapter1);
 
                 calligrapher.setFont(own_vendors,"fonts/Product Sans Bold.ttf");
 
@@ -138,11 +145,13 @@ public class VendorOrders extends Fragment {
     class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView name , address , email , rating;
+        ListView items;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            name = itemView.findViewById(R.id.textView17);
+            items = itemView.findViewById(R.id.items_order_vendor);
+            name = itemView.findViewById(R.id.name_of_vendor_orders);
             rating = itemView.findViewById(R.id.rating_vendor);
 
         }
