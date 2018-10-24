@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -52,48 +53,28 @@ public class VendorOrders extends Fragment {
         calligrapher.setFont(root , "fonts/Product Sans Bold.ttf");
 
 
-        ArrayList<Vendors_orders_model> vendor_orders = getVendorOrders();
-        RecyclerView.Adapter<ViewHolder> adapter =  setVendorOrders(root , inflater , calligrapher , vendor_orders);
+        //get orders and set recycler view to make it relevant
+        ArrayList<Vendors_orders_model> vendor_orders = getVendorOrders(root , inflater , calligrapher);
 
 
         return root;
     }
 
 
-    private ArrayList<Vendors_orders_model> getVendorOrders(){
+    //This one method gets the data and updates the rv on any change call this once to get orders
+
+    private ArrayList<Vendors_orders_model> getVendorOrders(View root, final LayoutInflater inflater , final Calligrapher calligrapher){
 
         final ArrayList<Vendors_orders_model> orders = new ArrayList<>();
 
-        //Get data via firebase static objects
 
-        FirebaseDatabase.getInstance().getReference("Businesses").child(FirebaseAuth.getInstance().getUid())
-                .child("Vendros_info").child("Vendor_orders").child("24-10-2018").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Iterable<DataSnapshot> dataSnapshots = dataSnapshot.getChildren();
-                for (DataSnapshot d:
-                     dataSnapshots) {
-                    orders.add(d.getValue(Vendors_orders_model.class));
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-        return orders;
-
-    }
-
-    private RecyclerView.Adapter setVendorOrders(View root, final LayoutInflater inflater
-            , final Calligrapher calligrapher, final ArrayList<Vendors_orders_model> vendors_orders ){
-
-        final RecyclerView own_vendors = root.findViewById(R.id.your_vendors);
+        final RecyclerView own_vendors = root.findViewById(R.id.order_vendors);
         own_vendors.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        RecyclerView.Adapter<ViewHolder> adapter = new RecyclerView.Adapter<ViewHolder>() {
+
+        //Get data via firebase static objects
+
+        final RecyclerView.Adapter<ViewHolder> adapter = new RecyclerView.Adapter<ViewHolder>() {
             @NonNull
             @Override
             public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -107,7 +88,7 @@ public class VendorOrders extends Fragment {
                 calligrapher.setFont(own_vendors,"fonts/Product Sans Bold.ttf");
 
                 //set vendor text
-                holder.name.setText(vendors_orders.get(holder.getAdapterPosition()).uid_vendor);
+                holder.name.setText(orders.get(holder.getAdapterPosition()).uid_vendor);
 
                 calligrapher.setFont(own_vendors,"fonts/Product Sans Bold.ttf");
 
@@ -117,15 +98,41 @@ public class VendorOrders extends Fragment {
 
             @Override
             public int getItemCount() {
-                return vendors_orders.size();
+                return orders.size();
             }
         };
 
+
+        FirebaseDatabase.getInstance().getReference("Businesses").child(FirebaseAuth.getInstance().getUid())
+                .child("Vendors_info").child("Vendor_orders").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> dataSnapshots = dataSnapshot.getChildren();
+                for (DataSnapshot d:
+                     dataSnapshots) {
+                    orders.add(d.getValue(Vendors_orders_model.class));
+                }
+
+                adapter.notifyDataSetChanged();
+
+                Toast.makeText(getActivity() ," get orders"  + orders.size(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
         own_vendors.setAdapter(adapter);
 
-        return adapter;
+
+        return orders;
 
     }
+
+
 
 
     class ViewHolder extends RecyclerView.ViewHolder{

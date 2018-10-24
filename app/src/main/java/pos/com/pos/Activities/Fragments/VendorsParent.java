@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,6 +36,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import me.anwarshahriar.calligrapher.Calligrapher;
 import pos.com.pos.Activities.Models.Vendor;
+import pos.com.pos.Activities.Models.Vendors_orders_model;
 import pos.com.pos.R;
 
 public class VendorsParent extends Fragment  implements VendorOrders.OnFragmentInteractionListener,
@@ -90,8 +93,43 @@ VendorsOwn.OnFragmentInteractionListener ,VendorsExplore.OnFragmentInteractionLi
         bottomNavigation.addItem(item2);
         bottomNavigation.addItem(item3);
 
+
+        //Set up fab with the bottom navigation bar
+
+        final Vendors_orders_model order = new Vendors_orders_model();
+
         FloatingActionButton fab = root.findViewById(R.id.fab);
         bottomNavigation.manageFloatingActionButtonBehavior(fab);
+
+        ArrayList<String> orders_models = new ArrayList<>();
+        orders_models.add("Hello");
+        orders_models.add("item23");
+
+        //Make object to push to firebase
+        order.setItems(orders_models);
+        order.setOrdered_at("Today");
+        order.setPriority(1);
+        order.setUid_vendor("aaaaaa");
+
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseDatabase.getInstance().getReference("Businesses")
+                        .child(FirebaseAuth.getInstance().getUid())
+                        .child("Vendors_info")
+                        .child("Vendor_orders")
+                        .child("24-10-2018").setValue(order).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Toast.makeText(getActivity() , "Pushed" , Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            }
+        });
+
+
 
 
         bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {

@@ -50,7 +50,6 @@ public class VendorsOwn extends Fragment {
         Calligrapher calligrapher = new Calligrapher(container.getContext());
         calligrapher.setFont(root , "fonts/Product Sans Bold.ttf");
 
-
         ArrayList<Vendor> vendors = getVendors();
         RecyclerView.Adapter adapter = setUpOwnVendors(root , inflater , calligrapher , vendors);
 
