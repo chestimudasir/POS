@@ -1,6 +1,7 @@
 package pos.com.pos.Activities.Fragments;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -80,7 +81,12 @@ public class VendorOrders extends Fragment {
             @NonNull
             @Override
             public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                return new ViewHolder(inflater.inflate(R.layout.vendor_orders_holder ,parent , false) );
+                ViewHolder viewHolder = new ViewHolder(inflater.inflate(R.layout.vendor_orders_holder ,parent , false) );
+
+                //set view wide font
+                calligrapher.setFont(viewHolder.itemView ,"fonts/Product Sans Bold.ttf");
+
+                return viewHolder;
             }
 
             @Override

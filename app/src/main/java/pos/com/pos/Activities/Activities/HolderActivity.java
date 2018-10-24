@@ -122,7 +122,13 @@ public class HolderActivity extends AppCompatActivity
             @NonNull
             @Override
             public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.nav_options , parent , false));
+                ViewHolder viewHolder =  new ViewHolder(LayoutInflater
+                        .from(parent.getContext()).inflate(R.layout.nav_options , parent , false));
+
+                calligrapher.setFont(viewHolder.itemView ,"fonts/Product Sans Bold.ttf");
+
+                return viewHolder;
+
             }
 
             @Override
@@ -180,15 +186,6 @@ public class HolderActivity extends AppCompatActivity
 
                     }
                 });
-
-
-
-                //Set navbar fonts
-
-                //TODO fix bug where last item is not custom fonted
-                calligrapher.setFont(findViewById(R.id.bottom_navigation),"fonts/Product Sans Bold.ttf");
-
-
 
             }
 
