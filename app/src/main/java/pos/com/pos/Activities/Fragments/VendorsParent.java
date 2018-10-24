@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -57,6 +58,10 @@ VendorsOwn.OnFragmentInteractionListener ,VendorsExplore.OnFragmentInteractionLi
         // Inflate the layout for this fragment
         View root =  inflater.inflate(R.layout.fragment_vendors_parent, container, false);
 
+        FragmentTransaction transaction =getFragmentManager().beginTransaction();
+        transaction.replace(R.id.fl , new VendorsOwn()).commit();
+
+
         Calligrapher calligrapher = new Calligrapher(container.getContext());
         calligrapher.setFont(root , "fonts/Product Sans Bold.ttf");
 
@@ -76,7 +81,6 @@ VendorsOwn.OnFragmentInteractionListener ,VendorsExplore.OnFragmentInteractionLi
         AHBottomNavigationItem item2 = new AHBottomNavigationItem("Orders", R.drawable.baseline_local_shipping_black_18dp, R.color.loginStatusBar);
         AHBottomNavigationItem item3 = new AHBottomNavigationItem("Explore", R.drawable.baseline_explore_black_18dp, R.color.loginStatusBar);
 
-
         calligrapher.setFont(bottomNavigation , "fonts/Product Sans Bold.ttf");
 
         bottomNavigation.setAccentColor(Color.parseColor("#000000"));
@@ -85,6 +89,10 @@ VendorsOwn.OnFragmentInteractionListener ,VendorsExplore.OnFragmentInteractionLi
         bottomNavigation.addItem(item1);
         bottomNavigation.addItem(item2);
         bottomNavigation.addItem(item3);
+
+        FloatingActionButton fab = root.findViewById(R.id.fab);
+        bottomNavigation.manageFloatingActionButtonBehavior(fab);
+
 
         bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
             @Override
