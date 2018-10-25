@@ -9,12 +9,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -26,7 +23,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import me.anwarshahriar.calligrapher.Calligrapher;
 import pos.com.pos.Activities.Models.Vendor;
-import pos.com.pos.Activities.Models.Vendors_orders_model;
 import pos.com.pos.R;
 
 public class VendorsExplore extends Fragment {
@@ -76,7 +72,7 @@ public class VendorsExplore extends Fragment {
             @NonNull
             @Override
             public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                ViewHolder viewHolder = new ViewHolder(inflater.inflate(R.layout.vendor_orders_holder ,parent , false) );
+                ViewHolder viewHolder = new ViewHolder(inflater.inflate(R.layout.holder_explore ,parent , false) );
 
                 //set view wide font
                 calligrapher.setFont(viewHolder.itemView ,"fonts/Product Sans Bold.ttf");
@@ -85,18 +81,41 @@ public class VendorsExplore extends Fragment {
             }
 
             @Override
-            public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+            public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
 
 
                 //set vendor text
-                holder.name.setText(vendors.get(holder.getAdapterPosition()).Name);
+                holder.category.setText(vendors.get(holder.getAdapterPosition()).category);
 
-                //Set items
-//                ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(root.getContext(),android.R.layout.simple_list_item_1,
-//                        vendors.get(holder.getAdapterPosition()).items);
-//                holder.items.setAdapter(adapter1);
 
+                //sub recycler view to show max of 3 items
+                holder.items.setLayoutManager(new LinearLayoutManager(getActivity()));
+                holder.items.setHasFixedSize(true);
+                holder.items.setAdapter(new RecyclerView.Adapter<ViewHolder_sublist>() {
+                    @NonNull
+                    @Override
+                    public ViewHolder_sublist onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+                        ViewHolder_sublist viewHolder_sublist = new ViewHolder_sublist(inflater.inflate(R.layout.vendor_explore_sub_item_list , parent , false));
+                        calligrapher.setFont(viewHolder_sublist.itemView ,"fonts/Product Sans Bold.ttf");
+                        return viewHolder_sublist;
+
+                    }
+
+                    @Override
+                    public void onBindViewHolder(@NonNull ViewHolder_sublist holder_sub, int position) {
+
+                        holder_sub.name.setText(vendors.get(holder.getAdapterPosition()).vendors.get(holder_sub.getAdapterPosition()).Name);
+
+
+                    }
+
+                    @Override
+                    public int getItemCount() {
+                        return vendors.get(holder.getAdapterPosition()).vendors.size();
+                    }
+                });
 
 
 
@@ -109,13 +128,30 @@ public class VendorsExplore extends Fragment {
         };
 
 
+        //get data from the database and sent notify the recycler view of the update once it's done
         FirebaseDatabase.getInstance().getReference("Vendors").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                Vendor vendor;
                 Iterable<DataSnapshot> dataSnapshots = dataSnapshot.getChildren();
                 for (DataSnapshot d:
                         dataSnapshots) {
-                    vendors.add(d.getValue(Vendor.class));
+
+                    //get vendor out of
+                    vendor = d.getValue(Vendor.class);
+                    vendor.category = d.getKey();
+
+                    Iterable<DataSnapshot> vendors_sublist = d.getChildren();
+                    vendor.vendors = new ArrayList<>();
+                    for (DataSnapshot d1:
+                         vendors_sublist) {
+
+                        vendor.vendors.add(d1.getValue(Vendor.class));
+
+                    }
+
+                    vendors.add(vendor);
                 }
 
                 adapter.notifyDataSetChanged();
@@ -169,15 +205,28 @@ public class VendorsExplore extends Fragment {
 
     class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView name , address , email , rating;
-        ListView items;
+        TextView category;
+        public RecyclerView items;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            items = itemView.findViewById(R.id.items_order_vendor);
-            name = itemView.findViewById(R.id.name_of_vendor_orders);
-            rating = itemView.findViewById(R.id.rating_vendor);
+            items = itemView.findViewById(R.id.vendors_explore_sub_list);
+            category = itemView.findViewById(R.id.category);
+
+        }
+    }
+
+    class ViewHolder_sublist extends RecyclerView.ViewHolder{
+
+        TextView name , desc;
+
+        public ViewHolder_sublist(@NonNull View itemView) {
+            super(itemView);
+
+            name = itemView.findViewById(R.id.textView10);
+            desc = itemView.findViewById(R.id.textView18);
+
 
         }
     }
