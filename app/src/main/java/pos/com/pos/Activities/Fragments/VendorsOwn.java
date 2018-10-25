@@ -162,7 +162,7 @@ public class VendorsOwn extends Fragment {
                 calligrapher.setFont(own_vendors,"fonts/Product Sans Bold.ttf");
 
                 //set vendor text
-                holder.name.setText(vendors.get(holder.getAdapterPosition()).name);
+                holder.name.setText(vendors.get(holder.getAdapterPosition()).Name);
                 calligrapher.setFont(holder.name,"fonts/Product Sans Bold.ttf");
 
             }
