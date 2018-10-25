@@ -127,9 +127,7 @@ public class VendorOrders extends Fragment {
                 }
 
                 adapter.notifyDataSetChanged();
-
-                Toast.makeText(getActivity() ," get orders"  + orders.size(), Toast.LENGTH_SHORT).show();
-            }
+                }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
